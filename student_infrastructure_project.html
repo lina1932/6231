@@ -1,5 +1,1907 @@
 <!DOCTYPE html>
+<html lang="ru"><!DOCTYPE html>
 <html lang="ru">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Проект ИТ-инфраструктуры и рабочего пространства</title>
+ <style>
+ :root{
+ --bg:#0a0a1a; --card:#111128; --text:#e0e0ff; --muted:#8888aa; --line:#222244;
+ --primary:#ff3366; --primary2:#ff6699;
+ --soft:#ffb6c1;
+ --green:#0f766e;
+ --warn:#9a6700;
+ --bad:#b42318;
+ --ink:#0f172a;
+ --shadow:0 14px 36px rgba(0,0,0,.4); --radius:22px;
+ }
+ *{box-sizing:border-box}
+ body{
+ margin:0;
+ font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+ color:var(--text);
+ background: radial-gradient(ellipse at 20% 30%, #0d0d2b, #050510);
+ line-height:1.58;
+ overflow-x:hidden;
+ position:relative;
+ }
+ 
+ body::before{
+ content:"";
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+ radial-gradient(1px 1px at 70px 150px, #fff, rgba(0,0,0,0)),
+ radial-gradient(1px 1px at 150px 80px, #fff, rgba(0,0,0,0)),
+ радиально-градиентный (3px 3px при 300px 400px, #fff, rgba(0,0,0,0)), 
+ радиально-градиентный (2px 2px при 500px 200px, #fff, rgba(0,0,0,0)), 
+ радиально-градиентный (1px 1px при 800px 600px, #fff, rgba (0,0,0,0)), 
+ радиально-градиентный (2px 2px при 1000px 300px, #fff, rgba(0,0,0,0)), 
+ радиальный градиент (1px 1px при 900px 800px, #fff, rgba (0,0,0,0));
+ background-repeat:no-repeat;
+ background-size:200px 200px;
+ opacity:0.6;
+ pointer-events:none;
+ z-index:0;
+ }
+ 
+ body::after{
+ content:"";
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background-image:linear-gradient(rgba(100,100,255,0.03) 1px, transparent 1px),
+ linear-gradient(90deg, rgba(100,100,255,0.03) 1px, transparent 1px);
+ background-size:40px 40px;
+ pointer-events:none;
+ z-index:0;
+ }
+ 
+ .animated-bg{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ z-index:-2;
+ overflow:hidden;
+ }
+ .gradient-1{
+ position:absolute;
+ top:-30%;
+ left:-20%;
+ width:80%;
+ height:80%;
+ background:radial-gradient(circle, rgba(255,51,102,0.25) 0%, rgba(255,51,102,0) 70%);
+ border-radius:50%;
+ animation:float1 18s ease-in-out infinite;
+ filter:blur(60px);
+ }
+ .gradient-2{
+ position:absolute;
+ bottom:-20%;
+ right:-10%;
+ width:70%;
+ height:70%;
+ background:radial-gradient(circle, rgba(100,80,255,0.3) 0%, rgba(100,80,255,0) 70%);
+ border-radius:50%;
+ animation:float2 22s ease-in-out infinite;
+ filter:blur(60px);
+ }
+ .gradient-3{
+ position:absolute;
+ top:40%;
+ left:30%;
+ width:60%;
+ height:60%;
+ background:radial-gradient(circle, rgba(255,51,102,0.2) 0%, rgba(255,51,102,0) 70%);
+ border-radius:50%;
+ animation:float3 25s ease-in-out infinite;
+ filter:blur(60px);
+ }
+ 
+ @keyframes float1{
+ 0%{transform:translate(0,0) scale(1);}
+ 50%{transform:translate(5%,3%) scale(1.05);}
+ 100%{transform:translate(0,0) scale(1);}
+ }
+ @keyframes float2{
+ 0%{transform:translate(0,0) scale(1);}
+ 50%{transform:translate(-4%,-6%) scale(1.08);}
+ 100%{transform:translate(0,0) scale(1);}
+ }
+ @keyframes float3{
+ 0%{transform:translate(0,0) scale(1);}
+ 50%{transform:translate(3%,-4%) scale(1.1);}
+ 100%{transform:translate(0,0) scale(1);}
+ }
+ 
+ .floating-circles{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ z-index:-1;
+ pointer-events:none;
+ }
+ .circle{
+ position:absolute;
+ background:rgba(255,51,102,0.15);
+ border-radius:50%;
+ filter:blur(40px);
+ animation:drift 20s infinite linear;
+ }
+ .circle:nth-child(1){width:300px;height:300px;top:10%;left:-10%;opacity:0.5;animation-duration:25s;}
+ .circle:nth-child(2){width:200px;height:200px;bottom:15%;right:-5%;opacity:0.4;animation-duration:30s;animation-delay:-5s;}
+ .circle:nth-child(3){width:350px;height:350px;top:40%;left:60%;opacity:0.3;animation-duration:35s;animation-delay:-10s;}
+ .circle:nth-child(4){width:150px;height:150px;top:70%;left:20%;opacity:0.35;animation-duration:22s;animation-delay:-3s;}
+ .circle:nth-child(5){width:250px;height:250px;top:20%;right:20%;opacity:0.25;animation-duration:28s;animation-delay:-7s;}
+ .circle:nth-child(6){width:180px;height:180px;bottom:30%;left:40%;opacity:0.3;animation-duration:32s;}
+ 
+ @keyframes drift{
+ 0%{transform:translate(0,0) rotate(0deg);}
+ 33%{transform:translate(2%,-2%) rotate(120deg);}
+ 66%{transform:translate(-1%,1.5%) rotate(240deg);}
+ 100%{transform:translate(0,0) rotate(360deg);}
+ }
+ 
+ .shooting-stars{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ pointer-events:none;
+ z-index:0;
+ overflow:hidden;
+ }
+ .падающая звезда{
+ position:absolute;
+ width:2px;
+ height:80px;
+ background:linear-gradient(180deg, #fff, rgba(255,255,255,0));
+ border-radius:50%;
+ opacity:0;
+ animation:shoot 3s linear infinite;
+ filter:blur(1px);
+ }
+ .shooting-star::before{
+ content:"";
+ position:absolute;
+ top:0;
+ left:-2px;
+ width:6px;
+ height:6px;
+ background:#fff;
+ border-radius:50%;
+ box-shadow:0 0 10px #fff, 0 0 20px rgba(255,51,102,0.5);
+ }
+ @keyframes shoot{
+ 0%{
+ transform:translateX(0) translateY(0) rotate(45deg);
+ opacity:0;
+ }
+ 10%{
+ opacity:1;
+ }
+ 80%{
+ opacity:0.8;
+ }
+ 100%{
+ transform:translateX(-400px) translateY(400px) rotate(45deg);
+ opacity:0;
+ }
+ }
+ .shooting-star:nth-child(1){top:10%; left:80%; animation-delay:0s; animation-duration:2.5s; height:60px;}
+ .shooting-star:nth-child(2){top:30%; left:60%; animation-delay:1.2s; animation-duration:3s; height:100px;}
+ .shooting-star:nth-child(3){top:50%; left:90%; animation-delay:2.5s; animation-duration:2.8s; height:70px;}
+ .shooting-star:nth-child(4){top:70%; left:40%; animation-delay:0.8s; animation-duration:3.2s; height:90px;}
+ .shooting-star:nth-child(5){top:20%; left:20%; animation-delay:3s; animation-duration:2.2s; height:50px;}
+ .shooting-star:nth-child(6){top:80%; left:70%; animation-delay:1.8s; animation-duration:3.5s; height:80px;}
+ .shooting-star:nth-child(7){top:40%; left:10%; animation-delay:4s; animation-duration:2.7s; height:65px;}
+ .shooting-star:nth-child(8){top:60%; left:50%; animation-delay:0.5s; animation-duration:3.8s; height:110px;}
+ .shooting-star:nth-child(9){top:15%; left:95%; animation-delay:2.2s; animation-duration:2.9s; height:55px;}
+ .shooting-star:nth-child(10){top:85%; left:30%; animation-delay:3.5s; animation-duration:3.1s; height:75px;}
+ .shooting-star:nth-child(11){top:5%; left:45%; animation-delay:1s; animation-duration:2.6s; height:85px;}
+ .shooting-star:nth-child(12){top:55%; left:85%; animation-delay:2.8s; animation-duration:3.3s; height:95px;}
+ 
+ .earth{
+ position:fixed;
+ top:40px;
+ right:40px;
+ width:140px;
+ height:140px;
+ border-radius:50%;
+ background-image:url('https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg');
+ background-size:cover;
+ background-position:center;
+ box-shadow:0 0 20px rgba(100,150,255,0.5), 0 0 40px rgba(80,120,255,0.3);
+ z-index:0;
+ pointer-events:none;
+ transition:transform 0.1s ease-out;
+ }
+ 
+ .wrap{
+ max-width:1140px;
+ margin:0 auto;
+ padding:28px 18px 56px;
+ position:relative;
+ z-index:2;
+ }
+ .hero{
+ background:linear-gradient(135deg, rgba(255,51,102,0.2) 0%, rgba(100,80,255,0.2) 100%);
+ backdrop-filter:blur(10px);
+ border:1px solid rgba(255,51,102,0.3);
+ color:#fff; border-radius:28px; padding:28px 26px; box-shadow:var(--shadow);
+ transition:transform 0.2s ease, box-shadow 0.2s ease;
+ }
+ .hero:hover{
+ transform:translateY(-3px);
+ box-shadow:0 20px 40px rgba(255,51,102,0.2);
+ }
+ .eyebrow{
+ display:inline-block; padding:7px 12px; border-radius:999px;
+ background:rgba(255,51,102,0.2); border:1px solid rgba(255,51,102,0.4);
+ font-size:13px; font-weight:700; letter-spacing:.02em; margin-bottom:14px;
+ transition:background 0.2s ease, transform 0.2s ease;
+ }
+ .hero:hover .eyebrow{
+ background:rgba(255,51,102,0.3);
+ transform:translateX(3px);
+ }
+ h1{margin:0; font-size:clamp(28px,4vw,42px); line-height:1.08;}
+ h2{margin:0 0 10px; font-size:26px; line-height:1.15;}
+ h3{margin:0 0 8px; font-size:19px; line-height:1.22;}
+ .hero p{margin:14px 0 0; max-width:900px; font-size:17px; opacity:.98;}
+ .nav{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+ .btn{
+ text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+ padding:11px 16px; border-radius:14px; font-weight:700; transition:all 0.25s ease;
+ border:1px solid transparent; cursor:pointer; font:inherit;
+ }
+ .btn.primary{background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%); color:#fff;}
+ .btn.secondary{background:rgba(20,20,45,0.8); color:#ff6699; border-color:rgba(255,51,102,0.4);}
+ .btn.secondary:hover{background:rgba(255,51,102,0.2); transform:translateY(-2px);}
+ .btn.action{background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%); color:#fff; box-shadow:0 10px 24px rgba(255,51,102,.3);}
+ .btn.warn{background:rgba(30,30,60,0.6); color:#cccccc; border-color:#8888aa;}
+ .btn:hover{transform:translateY(-2px);}
+ .section{
+ margin-top:18px; background:rgba(17,17,40,0.8);
+ backdrop-filter:blur(5px);
+ border-radius:var(--radius);
+ box-shadow:var(--shadow); border:1px solid rgba(100,80,255,0.2);
+ padding:24px 22px;
+ transition:transform 0.2s ease, box-shadow 0.2s ease;
+ }
+ .section:hover{
+ transform:translateY(-2px);
+ box-shadow:0 18px 40px rgba(0,0,0,.3);
+ border-color:rgba(255,51,102,0.3);
+ }
+ .lead{margin:0 0 14px; color:var(--muted); font-size:16px;}
+ .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+ .grid.three{grid-template-columns:repeat(3,1fr);}
+ .card{
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:16px;
+ background:rgba(20,20,45,0.6);
+ backdrop-filter:blur(4px);
+ transition:transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s ease, border-color 0.2s ease;
+ }
+ .card:hover{
+ transform:translateY(-8px) scale(1.01);
+ box-shadow:0 24px 40px rgba(0,0,0,0.4);
+ border-color:#ff3366;
+ }
+ .card p{margin:0; color:var(--muted);}
+ .note{
+ border-radius:18px; padding:16px 18px;
+ border:1px solid rgba(255,51,102,0.3);
+ background:rgba(255,51,102,0.1);
+ transition:all 0.25s ease;
+ }
+ .note:hover{
+ background:rgba(255,51,102,0.15);
+ transform:translateY(-3px);
+ box-shadow:0 12px 24px rgba(255,51,102,0.1);
+ }
+ .note strong{color:#ff6699;}
+ .warn-box{
+ border-radius:18px; padding:16px 18px;
+ border:1px solid rgba(80,80,120,0.5);
+ background:rgba(30,30,60,0.6);
+ }
+ .warn-box strong{color:#ffccaa;}
+ .field, textarea, select{
+ width:100%; border:1px solid rgba(100,80,255,0.3); border-radius:14px; padding:12px 14px;
+ font:inherit; color:var(--text); background:rgba(20,20,45,0.8);
+ }
+ textarea{min-height:116px; resize:vertical;}
+ .small{min-height:86px;}
+ label.caption{display:block; font-weight:700; margin:0 0 7px;}
+ .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+ .form-grid .wide{grid-column:1 / -1;}
+ .row-list{display:grid; gap:12px;}
+ .dynamic-row{
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
+ background:rgba(20,20,45,0.5);
+ display:grid; gap:12px;
+ transition:transform 0.2s ease, box-shadow 0.2s ease;
+ }
+ .dynamic-row:hover{
+ transform:translateX(4px);
+ box-shadow:0 6px 14px rgba(255,51,102,0.1);
+ }
+ .row-head{display:flex; align-items:center; gap:15px; margin-bottom:6px;}
+ .row-title{font-weight:800; color:#ff6699; font-size:1.1rem;}
+ 
+ /* Стиль квадрата участника с фото */
+ .member-photo {
+ width: 70px;
+ height: 70px;
+ border-radius: 18px;
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ box-shadow: 0 6px 14px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,51,102,0.3);
+ transition: transform 0.2s ease, box-shadow 0.2s ease;
+ flex-shrink: 0;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 28px;
+ font-weight: bold;
+ color: white;
+ text-shadow: 0 1px 2px black;
+ background-color: #2a2a4a;
+ }
+ .member-photo:hover {
+ transform: scale(1.02);
+ box-shadow: 0 8px 18px rgba(255,51,102,0.4);
+ }
+ .member-photo.fallback {
+ background: linear-gradient(135deg, #ff3366, #882244);
+ }
+ 
+ .mini-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+ .two-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+ .media-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+ .media-card{
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
+ background:rgba(20,20,45,0.5);
+ transition:transform 0.2s ease, box-shadow 0.2s ease;
+ }
+ .media-card:hover{
+ transform:translateY(-4px);
+ box-shadow:0 12px 24px rgba(255,51,102,0.1);
+ }
+ .media-preview{
+ width:100%;
+ min-height:200px;
+ border:2px dashed rgba(100,80,255,0.4);
+ border-radius:16px;
+ background:rgba(30,30,60,0.5);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ color:var(--muted);
+ overflow:hidden;
+ padding:12px;
+ margin:8px 0 12px;
+ }
+ .media-preview img{
+ width:100%;
+ height:auto;
+ max-height:200px;
+ object-fit:contain;
+ border-radius:12px;
+ display:block;
+ margin:0 auto;
+ transition:transform 0.3s ease;
+ }
+ .check-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+ .check-card{
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
+ background:rgba(20,20,45,0.5);
+ transition:transform 0.2s ease;
+ }
+ .check-card:hover{
+ transform:translateY(-3px);
+ }
+ .check-card h3{font-size:18px;}
+ .check-item{display:flex; gap:9px; align-items:flex-start; padding:8px 0; border-top:1px dashed rgba(100,80,255,0.3);}
+ .check-item:first-of-type{border-top:0;}
+ .check-item input{margin-top:5px; transition:transform 0.1s ease;}
+ .check-item input:hover{transform:scale(1.1);}
+ .score-bar{height:12px; border-radius:999px; background:#2a2a4a; overflow:hidden;}
+ .score-fill{height:100%; width:0%; background:linear-gradient(90deg,#ff3366 0%, #ff6699 100%); transition:.2s ease;}
+ .summary{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px;}
+ .sum-card{
+ background:rgba(20,20,45,0.7); border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:16px;
+ transition:transform 0.2s ease;
+ }
+ .sum-card:hover{transform:translateY(-3px);}
+ .sum-card strong{display:block; font-size:14px; color:var(--muted);}
+ .big{font-size:34px; font-weight:800; color:#ff6699; line-height:1; margin-top:8px;}
+ .pill{
+ display:inline-block; background:rgba(255,51,102,0.2); color:#ff6699; padding:6px 10px;
+ border-radius:999px; font-size:13px; font-weight:700; margin:0 8px 8px 0;
+ transition:background 0.2s ease, transform 0.15s ease;
+ }
+ .pill:hover{
+ background:rgba(255,51,102,0.4);
+ transform:scale(1.02);
+ }
+ .steps{display:grid; gap:12px;}
+ .step{
+ display:grid; grid-template-columns:52px 1fr; gap:14px; align-items:flex-start;
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
+ transition:all 0.25s ease;
+ background:rgba(17,17,40,0.5);
+ }
+ .step:hover{
+ border-color:#ff3366;
+ background:rgba(30,30,60,0.7);
+ transform:translateX(6px);
+ box-shadow:0 8px 20px rgba(255,51,102,0.15);
+ }
+ .num{
+ width:52px; height:52px; border-radius:16px;
+ background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%);
+ color:#fff;
+ display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:800;
+ box-shadow:0 2px 8px rgba(255,51,102,0.3);
+ transition:all 0.2s ease;
+ }
+ .step:hover .num{
+ transform:scale(1.05);
+ box-shadow:0 4px 14px rgba(255,51,102,0.5);
+ }
+ .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
+ .footer{
+ margin-top:18px; text-align:center; color:var(--muted); font-size:14px;
+ transition:opacity 0.2s ease;
+ }
+ .footer:hover{opacity:0.7;}
+ @media (max-width: 640px){
+ .member-photo { width: 55px; height: 55px; font-size: 22px; }
+ .row-head { gap: 10px; }
+ }
+ @media (max-width: 960px){
+ .grid,.grid.three,.form-grid,.mini-grid,.two-grid,.media-grid,.check-grid,.summary{grid-template-columns:1fr;}
+ .form-grid .wide{grid-column:auto;}
+ .earth{width:90px;height:90px;top:20px;right:20px;}
+ }
+ @media print{
+ body{background:#fff}
+ .hero,.section{box-shadow:none}
+ .nav,.actions,.remove-btn,.file-input{display:none !important}
+ .animated-bg,.floating-circles,.shooting-stars,.earth,body::before,body::after{display:none !important}
+ .section{break-inside:avoid}
+ }
+ </style>
+</head>
+<body>
+ <div class="animated-bg">
+ <div class="gradient-1"></div>
+ <div class="gradient-2"></div>
+ <div class="gradient-3"></div>
+ </div>
+ <div class="floating-circles">
+ <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+ <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+ </div>
+ <div class="падающие звезды">
+ <div class="падающая звезда"></div><div class="падающая звезда"></div><div class="падающая звезда"></div>
+ <div class="падающая звезда"></div><div class="падающая звезда"></div><div class="падающая звезда"></div>
+ <div class="падающая звезда"></div><div class="падающая звезда"></div><div class="падающая звезда"></div>
+ <div class="падающая звезда"></div><div class="падающая звезда"></div><div class="падающая звезда"></div>
+ </div>
+ <div class="земля"></div>
+
+ <div class="обертка">
+ <section class="hero">
+ <div class="eyebrow">Проектное задание</div>
+ <h1>Закупка оборудования, ИТ-инфраструктура и организация рабочего пространства</h1>
+ <p>Выберите реальную аудиторию, зону института, рабочее место или организацию. Проведите аудит, подтвердите выводы фотографиями, предложите улучшения, составьте смету и соберите собственный многостраничный HTML-проект для публикации на GitHub Pages. </p>
+ <div class="nav">
+ <a class="btn primary" href="index.html">Главная страница</a>
+ <a class="btn secondary" href="student_checklist_interactive.html">Базовый чек-лист</a>
+ <a class="btn secondary" href="student_report_template.html">Шаблон отчета</a>
+ <a class="btn secondary" href="student_publish_site_guide.html">Публикация сайта</a>
+ </div>
+ </раздел>
+
+ <!-- Раздел "Итог работы" УДАЛЁН по требованию пользователя -->
+
+ <класс раздела="section">
+ <h2>1. Паспорт проекта</h2>
+ <div class="form-grid">
+ <div><label class="caption" for="projectTitle">Название проекта</label><input class="field" id="projectTitle" type="text" value="Модернизация аудитории 6107" /></div>
+ <div><label class="caption" for="objectType">Тип объекта</label><select id="objectType"><option selected>Учебная аудитория</option><option>Компьютерный класс</option><option>Рабочее место преподавателя</option><option>Зона отдыха студентов</option><option>Серверный узел / сетевая зона</option><option>Офисное рабочее место</option><option>Другое пространство</option></select></div>
+ <div><label class="caption" for="roomNumber">Номер аудитории / название организации</label><input class="field" id="roomNumber" type="text" value="Корпус ФЭМ / аудитория 6107" /></div>
+ <div><label class="caption" for="audience">Целевая аудитория</label><input class="field" id="audience" type="text" value="Студенты, преподаватели" /></div>
+ <div class="wide"><label class="caption" for="uniqueness">Почему выбранный объект не повторяет чужой проект</label><textarea id="uniqueness" class="small">Мы изучаем аудиторию № 6107 на факультете экономики и менеджмента. Наш проект отличается тем, что мы хотим создать комфортные условия для работы не только студентов, но и преподавателей. </textarea></div>
+ <div class="wide"><label class="caption" for="projectGoal">Цель улучшения</label><textarea id="projectGoal">Цель: студентам будет удобно заниматься с новыми партами и телевизорами, с которых будет видно даже с последних парт, что написано на доске; производительность обучения станет выше с новым оборудованием для преподавателей, а с новой зоной для отдыха студенты будут всегда приходить вовремя на пары и будут совершенствовать свои навыки общения с сокурсниками.</textarea></div>
+ </div>
+ </section>
+ <section class="section">
+ <h2>2. Команда и обязанности</h2>
+ <p class="lead">Каждому участнику соответствует фотография из папки <code>Cosmos</code> (при отсутствии файла отображаются инициалы).</p>
+ <div id="teamList" class="row-list"></div>
+ </section>
+
+ <section class="section">
+ <h2>3. Универсальный стандарт анализа</h2>
+ <div class="steps">
+ <div class="step"><div class="num">1</div><div><h3>Сценарии работы</h3><p class="lead">Кто пользуется пространством, сколько людей одновременно, какие задачи выполняются, какая нагрузка на технику и сеть.</p></div></div>
+ <div class="step"><div class="num">2</div><div><h3>Текущее состояние</h3><p class="lead">Что уже есть: мебель, компьютеры, периферия, розетки, освещение, вентиляция, сеть, серверный шкаф или слаботочный узел.</p></div></div>
+ <div class="step"><div class="num">3</div><div><h3>Требования</h3><p class="lead">Минимальный, рекомендуемый и перспективный уровень оснащения, эргономики, безопасности и обслуживания.</p></div></div>
+ <div class="step"><div class="num">4</div><div><h3>Варианты решения</h3><p class="lead">Без бюджета, малый бюджет, базовая закупка, расширенная закупка. Для каждого варианта нужны эффект и ограничения.</p></div></div>
+ <div class="step"><div class="num">5</div><div><h3>Смета и жизненный цикл</h3><p class="lead">Цена покупки, расходные материалы, обслуживание, срок службы, возможность модернизации, риски простоя и итоговая стоимость владения.</p></div></div>
+ <div class="step"><div class="num">6</div><div><h3>Защита проекта</h3><p class="lead">Почему именно это решение подходит выбранной аудитории, какие доказательства собраны и как можно реализовать проект по этапам.</p></div></div>
+ </div>
+ </section>
+ <section class="section">
+ <h2>4. Полевой аудит и реальные фотографии</h2>
+ <p class="lead">Посетите выбранное место лично. Добавьте фотографии текущего состояния, подписи и выводы. Файлы должны лежать по указанным путям (папка <code>images</code>).</p>
+ <div id="Фотолист" class="медиа-сетка"></div>
+ </section>
+
+ <section class="секция">
+ <h2>5. Проект закупки оборудования</h2>
+ <p class="lead">Подбирайте оборудование под задачи пользователей, а не просто по максимальным характеристикам.</p>
+ <div id="equipmentList" class="row-list"></div>
+ <div class="grid" style="margin-top:14px;">
+ <div class="card"><h3>Решения без бюджета или с минимальными затратами</h3><textarea id="noBudgetPlan" class="small">Перестановка задних парт в складское помещение, прокладка кабелей, график проветривания, настройка мониторов по высоте, подключение мониторов к интерактивной доске, озеленение кабинета.</textarea></div>
+ <div class="card"><h3>Решения по закупкам</h3><textarea id="budgetPlan" class="small">Новые мониторы, ПК для преподавателя, мышь, лампы, коврик для мыши, новые парты, новые стулья, журнальные столики, диваны, тумба, кофемашина.</textarea></div>
+ </div>
+ <div style="margin-top:14px;"><label class="caption" for="tco">Итоговая логика бюджета и стоимости владения</label><textarea id="tco" class="small">Общая стоимость закупки оборудования (12 позиций) составляет ориентировочно 1 074 000 рублей. Ключевые затраты: парты для учеников (21 шт. ? 7 000 руб. = 147 000 руб.), мониторы для учеников (21 шт. ? 15 000 руб. = 315 000 руб.), стулья для учеников (42 шт. ? 5 000 руб. = 210 000 руб.). Остальные позиции: кресло преподавателя (25 000 руб.), монитор преподавателя (32 000 руб.), угловой стол (18 000 руб.), кофемашина (22 000 руб.), диваны (3 шт. ? 35 000 руб. = 105 000 руб.), тумба (8 500 руб.), кофейные столики (2 шт. ? 4 000 руб. = 8 000 руб.), лампа (3 500 руб.), меловая доска (4 500 руб.). Срок службы оборудования: мебель и диваны – 7–10 лет, мониторы и техника – 5–7 лет. Расходные материалы: замена ламп в системе освещения раз в 3–4 года (~2000 руб.), обслуживание кофемашины (чистка, замена капсул) — ~5000 руб./год. Обслуживание ПК и мониторов — профилактика и мелкий ремонт — ~10 000 руб./год. Возможна модернизация: мониторы можно обновлять по одному, увеличить объем оперативной памяти в ПК преподавателя. Риски простоя минимальны, так как оборудование поставляется от проверенных поставщиков. Закупка рациональна, так как позволяет повысить комфорт обучения, увеличить мотивацию студентов и преподавателей, снизить утомляемость и улучшить видимость учебных материалов. Окупаемость выражается в повышении качества образования и сохранении здоровья.</textarea></div>
+ </секция>
+
+ <класс секции="секция">
+ <h2>6. Эргономика, зоны отдыха и серверные узлы</h2>
+ <div class="grid">
+ <div class="card"><h3>Рабочие места</h3><textarea id="workplaceErgo" class="small">Столы старые, не регулируются по высоте, что приводит к неправильной посадке. Мониторы стоят слишком низко — нужны подставки или регулируемые кронштейны. Расстояние от последних парт до интерактивной доски слишком большое, шрифт мелкий. Предлагается: заменить парты на регулируемые по высоте, оснастить каждый стол подставкой для монитора, установить эргономичные кресла с поясничной поддержкой. Для улучшения освещения добавить настольные лампы с регулируемой яркостью. </textarea></div>
+ <div class="card"><h3>Зоны отдыха и восстановления</h3><textarea id="restZone" class="small">В настоящее время в аудитории нет места для отдыха или перерывов. Студенты вынуждены сидеть за партами даже во время перемен. Предлагается организовать зону отдыха у окна: два мягких дивана, журнальные столики, тумба для зарядки гаджетов, кофемашина. Это позволит студентам и преподавателям восстанавливать концентрацию, общаться в неформальной обстановке и заряжать устройства. </textarea></div>
+ <div class="card"><h3>Сеть и серверный узел</h3><textarea id="serverNode" class="small">В аудитории есть несколько розеток, но их недостаточно для подключения всех ноутбуков. Wi-Fi работает нестабильно из-за старых точек доступа. Проводная сеть отсутствует. Предлагается: установить дополнительные розетки (по две на парту), смонтировать новый Wi-Fi-роутер с поддержкой Wi-Fi 6, проложить кабели к компьютеру преподавателя и интерактивной доске. Для серверного узла (при необходимости) выделить шкаф в подсобном помещении с отдельной вентиляцией. </textarea></div>
+ <div class="card"><h3>Безопасность и доступность</h3><textarea id="safetyAccess" class="small">Текущее состояние: провода от удлинителей лежат на проходе, создавая опасность споткнуться. Парты загромождают проходы между рядами. Нет тактильных указателей для слабовидящих. Предлагается: организовать кабельные каналы и скрытую проводку, расширить проходы за счёт перестановки парт, установить световые указатели выхода, предусмотреть места для колясок и маломобильных студентов у входа.</textarea></div>
+ </div>
+ </section>
+
+ <класс раздела="section">
+ <h2>7. AI-визуализации будущего пространства</h2>
+ <p class="lead">Добавьте не менее 4 визуализаций. Для каждой укажите промпт, назначение изображения и что именно оно помогает доказать.</p>
+ <div id="visualList" class="media-grid"></div>
+ </section>
+
+ <section class="секция">
+ <h2>8. Обязательный чек-лист по контролю качества</h2>
+ <div class="summary"><div class="sum-card"><strong>Закрыто пунктов</strong><div class="big" id="doneCount">0</div></div><div class="sum-card"><strong>Всего пунктов</strong><div class="big" id="totalCount">0</div></div><div class="sum-card"><strong>Готовность</strong><div class="big" id="readyPercent">0%</div></div><div class="sum-card"><strong>Статус</strong><div id="readyStatus" style="margin-top:8px; font-weight:800;">Начните заполнение</div></div></div>
+ <div class="score-bar" style="margin-top:12px;"><div class="score-fill" id="scoreFill"></div></div>
+ <div id="qualityChecklist" class="check-grid" style="margin-top:14px;"></div>
+ </раздел>
+
+ <класс раздела="раздел">
+ <h2>9. Структура итогового HTML-сайта</h2>
+ <div class="сетка">
+ <div class="card"><h3>Обязательные страницы</h3><ul><li><strong>index.html</strong> - входная страница проекта и краткое резюме;</li><li><strong>audit.html</strong> - фотофиксация, проблемы и результаты чек-листов;</li><li><strong>equipment.html</strong> - закупка, смета, обоснование оборудования;</li><li><strong>ergonomics.html</strong> - планировка, рабочие места, зона отдыха, серверный узел;</li><li><strong>visuals.html</strong> - минимум 4 AI-визуализаций с промптами;</li><li><strong>reflection.html</strong> - личные выводы участников и вклад команды.</li></ul></div>
+ <div class="card"><h3>Что нельзя сдавать</h3><ul><li>текст без фотографий выбранного места;</li><li>универсальные советы без привязки к аудитории или организации;</li><li>картинки без объяснения, какую проблему они решают;</li><li>смету без обоснования выбора оборудования;</li><li>командную работу без личных выводов каждого участника.</li></ul></div>
+ </div>
+ <div class="warn-box" style="margin-top:14px;"><strong>Важно:</strong> тема программного обеспечения будет отдельным заключительным этапом курса. В этой работе можно кратко обозначить потребности в программном обеспечении, но основное внимание следует уделить аппаратному обеспечению, пространству, эргономике, сети и реалистичности внедрения.</div>
+ </section>
+
+ <section class="section">
+ <h2>10. Итоговые выводы</h2>
+ <div class="grid">
+ <div class="card"><h3>Общий вывод по проекту</h3><textarea id="finalProjectConclusion" class="small">Проведенный аудит аудитории 6107 (корпус ФЭМ) выявил ряд критических проблем: неудобные старые парты, недостаточное освещение, отсутствие зоны отдыха, нестабильный Wi-Fi, нехватка розеток, устаревшее оборудование для преподавателя и небезопасная прокладка кабелей. В рамках проекта предложен комплекс решений, разделенных на быстрые бесплатные действия (перестановка задних парт, прокладка кабелей, настройка мониторов, график проветривания) и бюджетные вложения (новые парты, стулья, ПК для преподавателя, мониторы, диваны, журнальные столики, кофемашина, Wi-Fi-роутер, дополнительные розетки). Реализация проекта позволит повысить комфорт студентов и преподавателей, улучшить видимость учебных материалов, обеспечить удобное рабочее место для преподавателя, создать зону отдыха для восстановления концентрации и общения, а также повысить общую безопасность и доступность пространства. Проект является реалистичным, поскольку сочетает в себе быстро реализуемые меры с поэтапной закупкой оборудования, а его экономическая эффективность выражается в повышении качества обучения и снижении утомляемости учащихся. </textarea></div>
+ <div class="card"><h3>План внедрения по этапам</h3><textarea id="implementationPlan" class="small">Этап 1 (1–2 недели, без бюджета): перестановка задних парт, кабельная организация, настройка мониторов, подключение мониторов к доске, график проветривания, растения.\n\nЭтап 2 (3–4 недели, малый бюджет): дополнительные розетки, новый Wi-Fi роутер, прокладка кабеля, настольные лампы.\n\nЭтап 3 (1–2 месяца, основной бюджет): замена парт и стульев на эргономичные, закупка ПК, монитора, мыши, коврика для преподавателя, установка зоны отдыха: диваны, кофейные столики, тумба для зарядки, кофе-машина.\n\nЭтап 4 (контроль и обслуживание): регулярная проверка кабелей, обновление ПО, сбор обратной связи.</textarea></div>
+ </div>
+ <div class="note" style="margin-top:14px;"><strong>Хорошая защита проекта</strong> объединяет в себе реальные наблюдения, фотографии, смету, ограничения помещения, потребности пользователей и понятный эффект от внедрения.</div>
+ <div class="actions"><button class="btn action" id="saveBtn" type="button">Сохранить черновик</button><button class="btn warn" id="clearBtn" type="button">Очистить черновик</button></div>
+ </section>
+ <div class="footer">После заполнения перенесите материалы на собственные HTML-страницы, проверьте ссылки и опубликуйте проект на GitHub Pages.</div>
+ </div>
+
+<script>
+const storageKey = 'workspaceInfrastructureProjectDraft';
+const checklistGroups = [
+ {title:'Объект и доказательства', items:['Выбран конкретный объект: аудитория, зона, рабоче место или организация.','Объяснено, почему проект не повторяет работы других студентов.','Есть реальные фотографии текущего состояния объекта.','Проблемы подтверждаются наблюдениями, а не только личными ощущениями.']},
+ {title:'Пользователи и сценарии', items:['Описана целевая аудитория и количество пользователей.','Перечислены основные задачи, которые выполняются в пространстве.','Показано, какие требования эти задачи создают к технике, мебели, свету и сети.','Учтены ограничения помещения, расписания, бюджета или доступа.']},
+ {title:'Аппаратное обеспечение', items:['Оборудование подобрано под задачи, а не по принципу максимальных характеристик.','Для каждой позиции закупки указано назначение и обоснование.','Есть ориентировочная стоимость и количество единиц.','Учтены обслуживание, срок службы, модернизация и расходники.']},
+ {title:'Эргономика и пространство', items:['Рассмотрены столы, кресла, посадка, высота экранов и освещение.','Предложены улучшения без бюджета или с минимальными затратами.','Продумана зона отдыха, восстановления или короткой самостоятельной работы.','Решения не ухудшают проходы, безопасность и доступность пространства.']},
+ {title:'Сеть, серверный узел и безопасность', items:['Оценены Wi-Fi, сетевые розетки, кабели и потребность в коммутаторе.','Если уместно, описан серверный шкаф, ИБП, вентиляция и ограничение доступа.','Учтены электробезопасность, нагрузка на розетки и кабельная организация.','Показаны риски простоя, перегрева, повреждения или несанкционированного доступа.']},
+ {title:'Визуализация и публикация', items:['Добавлено не менее 4 визуализаций будущего пространства.','Для каждой визуализации указан промпт или метод создания.','Итоговый проект оформлен как многостраничный HTML-сайт.','Сайт опубликован в публичном репозитории через GitHub Pages.']},
+ {title:'Командная работа и выводы', items:['Указаны участники команды и обязанности каждого.','Каждый участник написал собственный вывод о проделанном исследовании.','Команда показала, какие решения можно реализовать сейчас, а какие требуют бюджета.','Итоговый вывод связывает аудит, смету, эргономику, инфраструктуру и эффект.']}
+];
+
+let state = {
+ team: [
+ {name:'Плеханов Вячеслав Витальевич', role:'HTML', duties:'Написание кода с исправлением ошибок', conclusion:'Честно говоря, раньше я думал, что вёрстка — это просто «накидать тегов». Но когда мы начали этот проект, я понял, как много зависит от правильной структуры и адаптивности. Теперь я сам удивляюсь, как круто, когда сайт красиво смотрится и на ноутбуке, и на телефоне. А ещё я научился не бояться ошибок в коде — браузер и консоль стали моими лучшими друзьями :)'},
+ {name:'Быков Роман Павлович', role:'HTML', duties:'Написание кода с исправлением ошибок', conclusion:'До этого проекта я думал, что HTML — это скучно и просто. Но когда мы делали эту страницу с кучей динамических блоков, я понял, как важно всё структурировать. И ещё — работать в команде оказалось сложнее, чем одному, но когда мы вместе исправляли баги, это было по-настоящему круто. Теперь я точно знаю, что хочу углубиться в фронтенд».},
+ {name: «Дорохова Ульяна Алексеевна», role: «Аудит», duties: «Опрос студентов о проблемной аудитории», conclusion: «Оказалось, что студенты очень хотят перемен! Когда я обходила группу и спрашивала, что их раздражает в аудитории 6107, многие сразу начинали перечислять: «ужасный свет», «нет розеток», «парты неудобные». Я и не знала, что люди так переживают из-за таких мелочей. Было приятно, что нас поддержали. Теперь я вижу, что даже небольшой опрос может дать много ценной информации.},
+ {name:'Иванова Дарья Владленовна', role:'Аудит', duties:'Опрос студентов о проблемной аудитории', conclusion:'Самое интересное в моей работе — это то, что одни и те же проблемы называют совершенно разные люди. Например, о плохом освещении говорили и старшекурсники, и первокурсники. Это помогло нам не распыляться, а сосредоточиться на действительно важных вещах. Я научилась анализировать обратную связь и отличать личные капризы от системных проблем. Очень полезный опыт.'},
+ {name:'Зворыгина Эвелина', role:'Смета', duties:'Расчёт стоимости каждого нового оборудования', conclusion:'Если честно, я никогда не думала, что составление сметы — это так увлекательно! Пришлось облазить кучу сайтов, сравнить цены, подумать, где можно сэкономить, а где лучше не жадничать. Я поняла, что дешёвое не всегда плохое, а дорогое не всегда хорошее. Теперь я могу прикинуть бюджет для любого ремонта или закупки — это реально полезный навык в жизни.'},
+ {name:'Шаботина Екатерина Олеговна', role:'Дизайн', duties:'Редактирование фотографий в AI', conclusion:'Честно говоря, я впервые так плотно работала с нейросетями для обработки фотографий. Это волшебство! Я научилась за пару минут убирать с фотографий лишнее, улучшать освещение и даже создавать картинки «как будет выглядеть» с помощью промтов. Правда, иногда результат получался забавным — например, диваны вырастали до потолка, но если подобрать правильные слова, получается очень круто. Теперь я фанат ИИ-инструментов.'}
+ ],
+ оборудование: [
+ {name:'Кожаное кресло для преподавателя', specs:'Эргономичное, с регулировкой высоты', qty:'1 шт.', price:'25 000 руб.', reason:'Комфортное рабочее место', priority:'Обязательная'},
+ {name:'Монитор для преподавателя', specs:'27", 2K, IPS, антиблик', qty:'1 шт.', price:'32 000 руб.', reason:'Качественное изображение', priority:'Обязательная'},
+ {name:'Стол угловой для преподавателя', specs:'ЛДСП, 1600х1600 мм', qty:'1 шт.', price:'18 000 руб.', reason:'Организация пространства', priority:'Обязательная'},
+ {name:'Парты для учеников', specs:'Регулируемые по высоте, 1200х500 мм', qty:'21 шт.', price:'7 000 руб./шт.', reason:'Эргономичная посадка', priority:'Обязательная'},
+ {name:'Мониторы для учеников', specs:'24", Full HD, IPS', qty:'21 шт.', price:'15 000 руб./шт.', reason:'Снижение нагрузки на зрение', priority:'Обязательная'},
+ {name:'Стулья для учеников', specs:'Эргономичные, регулируемые', qty:'42 шт.', price:'5 000 руб./шт.', reason:'Комфорт спины', priority:'Обязательная'},
+ {name:'Маленькая доска меловая', specs:'1200х900 мм', qty:'1 шт.', price:'4 500 руб.', reason:'Дополнительные пояснения', priority:'Рекомендуемая'},
+ {name:'Кофемашина', specs:'Капсульная, 1500 Вт', qty:'1 шт.', price:'22 000 руб.', reason:'Комфортная атмосфера', priority:'Рекомендуемая'},
+ {name:'Диван', specs:'Мягкий, трёхместный', qty:'3 шт.', price:'35 000 руб./шт.', reason:'Зона отдыха', priority:'Рекомендуемая'},
+ {name:'Тумба', specs:'С розетками и USB', qty:'1 шт.', price:'8 500 руб.', reason:'Зарядка устройств', priority:'Рекомендуемая'},
+ {name:'Кофейные столики', specs:'Стеклянные, d=600 мм', qty:'2 шт.', price:'4 000 руб./шт.', reason:'Удобство в зоне отдыха', priority:'Рекомендуемая'},
+ {name:'Лампа', specs:'LED, регулируемая яркость', qty:'1 шт.', price:'3 500 руб.', reason:'Освещение вечером', priority:'Желательная'}
+ ],
+ photos: [
+ {path:'images/IMG_1258.jpeg', caption:'Отсутствие зоны отдыха', finding:'Нет зоны отдыха для студентов и преподавателя'},
+ {path:'images/IMG_1257.jpeg', caption:'Отсутствие зоны отдыха (другой ракурс)', finding:'Нет зоны отдыха для студентов и преподавателей (другой ракурс)'},
+ {path:'images/IMG_1259.jpeg', caption:'Общий вид аудитории', finding:'Неудобные парты, не видно доски с дальних парт'},
+ {path:'images/IMG_1256.jpeg', caption:'Рабочее место преподавателя', finding:'Не хватает современного ПК, удобного кресла и стола'},
+ {path:'images/IMG_1425.jpeg', caption:'Рабочее место студентов', finding:'Неудобные условия для обучения'}
+ ],
+ визуальные эффекты: [
+ {путь: 'images/IMG_1266.jpeg', подсказка: 'Модное преподавательское место', цель: 'Иллюстрация нового рабочего места', критерий: 'Демонстрирует улучшения'},
+ {path:'images/IMG_1267.jpeg', prompt:'Современная аудитория', purpose:'Вид от лица студентов', criteria:'Улучшение пространства для студентов'},
+ {path:'images/IMG_1268.jpeg', prompt:'Зона отдыха с мягкой мебелью', purpose:'Новая зона отдыха', criteria:'Решение проблемы отсутствия отдыха'},
+ {path:'images/IMG_1269.jpeg', prompt:'Современная зона отдыха с кофемашиной', purpose:'Зона отдыха с другого ракурса', criteria:'Решение проблемы отсутствия отдыха'},
+ {path:'images/IMG_1426.jpeg', prompt:'Удобные парты для обучения студентам', purpose:'Парты студентов', criteria:'Удобство новых парт для студентов'}
+ ], 
+ контрольный список:{}
+};
+
+функция byId(id){ вернуть документ.getElementById(id); }
+function escapeHtml(v){ return String(v||'').replace(/[&<>]/g, c => ({'&':'&amp;','<':'<','>':'>'}[c])); }
+
+// Массив путей к фото для каждого участника (индексы 0..5)
+const memberPhotoPaths = [
+ 'Cosmos/IMG_1418.jpeg', // участник 1 — изменено на IMG_1418.jpeg
+ 'Cosmos/IMG_1416.webp', // участник 2
+ 'Cosmos/IMG_1419.jpeg', // участник 3
+ 'Cosmos/IMG_1420.jpeg', // участник 4
+ 'Cosmos/IMG_1423.jpeg', // участник 5
+ 'Cosmos/IMG_1424.jpeg' // участник 6
+];
+const memberInitials = ['ВП','РБ','УД','ДИ','ЗЭ','КШ'];
+function renderTeam(){
+ const list = byId('teamList');
+ list.innerHTML = '';
+ state.team.forEach((member, idx) => {
+ const row = document.createElement('div');
+ row.className = 'dynamic-row';
+ const photoUrl = memberPhotoPaths[idx];
+ const squareDiv = document.createElement('div');
+ squareDiv.className = 'member-photo';
+ squareDiv.style.backgroundImage = `url('${escapeHtml(photoUrl)}')`;
+ squareDiv.style.backgroundSize = 'cover';
+ squareDiv.style.backgroundPosition = 'center';
+ squareDiv.title = `Фото: ${member.name}`;
+ squareDiv.onerror = function() {
+ this.style.backgroundImage = 'none';
+ this.classList.add('fallback');
+ this.textContent = memberInitials[idx];
+ this.style.display = 'flex';
+ this.style.alignItems = 'center';
+ this.style.justifyContent = 'center';
+ this.style.fontSize = '28px';
+ this.style.fontWeight = 'bold';
+ };
+ if (squareDiv.complete && (squareDiv.naturalWidth === 0 || squareDiv.naturalHeight === 0)) {
+ squareDiv.onerror();
+ }
+ const rowHead = document.createElement('div');
+ rowHead.className = 'row-head';
+ rowHead.appendChild(squareDiv);
+ const titleSpan = document.createElement('div');
+ titleSpan.className = 'row-title';
+ titleSpan.textContent = `Участник ${idx+1}`;
+ rowHead.appendChild(titleSpan);
+ const miniGrid = document.createElement('div');
+ miniGrid.className = 'mini-grid';
+ miniGrid.innerHTML = `
+ <div><label class="caption">ФИО</label><input class="field" data-team="${idx}" data-field="name" value="${escapeHtml(member.name)}"></div>
+ <div><label class="caption">Роль</label><input class="field" data-team="${idx}" data-field="role" value="${escapeHtml(member.role)}"></div>
+ <div><label class="caption">Зона ответственности</label><input class="field" data-team="${idx}" data-field="duties" value="${escapeHtml(member.duties)}"></div>
+ `;
+ const conclusionDiv = document.createElement('div');
+ conclusionDiv.innerHTML = `<label class="caption">Личный вывод</label><textarea class="small" data-team="${idx}" data-field="conclusion">${escapeHtml(member.conclusion)}</textarea>`;
+ row.appendChild(rowHead);
+ row.appendChild(miniGrid);
+ row.appendChild(conclusionDiv);
+ list.appendChild(row);
+ });
+}
+
+функция renderEquipment(){
+ const list = byId('equipmentList');
+ list.innerHTML = '';
+ state.equipment.forEach((item, idx) => {
+ const row = document.createElement('div');
+ row.className = 'dynamic-row';
+ row.innerHTML = `
+ <div class="row-head"><div class="row-title">Позиция закупки ${idx+1}</div></div>
+ <div class="mini-grid">
+ <div><label class="caption">Оборудование</label><input class="field" data-equipment="${idx}" data-field="name" value="${escapeHtml(item.name)}"></div>
+ <div><label class="caption">Характеристики</label><input class="field" data-equipment="${idx}" data-field="specs" value="${escapeHtml(item.specs)}"></div>
+ <div><label class="caption">Приоритет</label><select data-equipment="${idx}" data-field="priority"><option ${item.priority==='Обязательная'?'selected':''}>Обязательная</option><option ${item.priority==='Рекомендуемая'?'selected':''}>Рекомендуемая</option><option ${item.priority==='Желательная'?'selected':''}>Желательная</option></select></div>
+ </div>
+ <div class="two-grid">
+ <div><label class="caption">Количество</label><input class="field" data-equipment="${idx}" data-field="qty" value="${escapeHtml(item.qty)}"></div>
+ <div><label class="caption">Цена</label><input class="field" data-equipment="${idx}" data-field="price" value="${escapeHtml(item.price)}"></div>
+ </div>
+ <div><label class="caption">Обоснование</label><textarea class="small" data-equipment="${idx}" data-field="reason">${escapeHtml(item.reason)}</textarea></div>
+ `;
+ list.appendChild(row);
+ });
+}
+
+function createImagePreview(src, alt, errorText) {
+ const container = document.createElement('div');
+ container.className = 'media-preview';
+ const img = document.createElement('img');
+ img.src = src; 
+ img.alt = alt; 
+ img.style.MaxWidth = '100%';
+ img.style.maxHeight = '200 пикселей'; 
+ img.onerror = () => { 
+ container.innerHTML = `<div style="отступ:20 пикселей;">?? ${escapeHtml(errorText || 'Файл не найден')}<br>Путь: ${escapeHtml(src)}</div>`;
+ container.style.flexDirection = 'столбец';
+ }; 
+ container.appendChild(img);
+ вернуть контейнер;
+}
+
+функция renderPhotos(){ 
+ const list = byId('Фотолист');
+ список.innerHTML = "; 
+ состояние.фотографии.forEach((фото, idx) => { 
+ const card = document.createElement('div');
+ card.className = 'медиа-карта';
+ const preview = createImagePreview(photo.path, `Фото ${idx+1}`, `Файл не найден: ${photo.path}<br>Поместите фото в папку images/`);
+ card.innerHTML = `<div class="row-head"><h3>Фото текущего состояния ${idx+1}</h3></div>`;
+ card.appendChild(preview);
+ const pathInput = document.createElement('label');
+ pathInput.className = 'caption';
+ pathInput.textContent = 'Путь к файлу';
+ const pathField = document.createElement('input');
+ pathField.className = 'field';
+ pathField.setAttribute('data-photo', idx);
+ pathField.setAttribute('data-field', 'path');
+ pathField.value = photo.path;
+ const captionLabel = document.createElement('label');
+ captionLabel.className = 'caption';
+ captionLabel.textContent = 'Подпись';
+ const captionField = document.createElement('input');
+ captionField.className = 'field';
+ captionField.setAttribute('data-photo', idx);
+ captionField.setAttribute('data-field', 'caption');
+ captionField.value = photo.caption;
+ const findingLabel = document.createElement('label');
+ findingLabel.className = 'caption';
+ findingLabel.textContent = 'Вывод';
+ const findingField = document.createElement('textarea');
+ findingField.className = 'small';
+ findingField.setAttribute('data-photo', idx);
+ findingField.setAttribute('data-field', 'finding');
+ findingField.value = photo.finding;
+ card.appendChild(pathInput);
+ card.appendChild(pathField);
+ card.appendChild(captionLabel);
+ card.appendChild(captionField);
+ card.appendChild(findingLabel);
+ card.appendChild(findingField);
+ list.appendChild(card);
+ });
+}
+
+function renderVisuals(){
+ const list = byId('visualList');
+ list.innerHTML = '';
+ state.visuals.forEach((vis, idx) => {
+ const card = document.createElement('div');
+ card.className = 'media-card';
+ const preview = createImagePreview(vis.path, `Визуализация ${idx+1}`, `Файл не найден: ${vis.path}<br>Поместите изображение в папку images/`);
+ card.innerHTML = `<div class="row-head"><h3>AI-визуализация ${idx+1}</h3></div>`;
+ card.appendChild(preview);
+ const pathLabel = document.createElement('label');
+ pathLabel.className = 'caption';
+ pathLabel.textContent = 'Путь к файлу';
+ const pathField = document.createElement('input');
+ pathField.className = 'field';
+ pathField.setAttribute('data-visual', idx);
+ pathField.setAttribute('data-field', 'path');
+ pathField.value = vis.path;
+ const promptLabel = document.createElement('label');
+ promptLabel.className = 'caption';
+ promptLabel.textContent = 'Промпт';
+ const promptField = document.createElement('textarea');
+ promptField.className = 'small';
+ promptField.setAttribute('data-visual', idx);
+ promptField.setAttribute('data-field', 'prompt');
+ promptField.value = vis.prompt;
+ const purposeLabel = document.createElement('label');
+ purposeLabel.className = 'caption';
+ purposeLabel.textContent = 'Назначение';
+ const purposeField = document.createElement('input');
+ purposeField.className = 'field';
+ purposeField.setAttribute('data-visual', idx);
+ purposeField.setAttribute('data-field', 'purpose');
+ purposeField.value = vis.purpose;
+ const criteriaLabel = document.createElement('label');
+ criteriaLabel.className = 'caption';
+ criteriaLabel.textContent = 'Что доказывает';
+ const criteriaField = document.createElement('textarea');
+ criteriaField.className = 'small';
+ criteriaField.setAttribute('data-visual', idx);
+ criteriaField.setAttribute('data-field', 'criteria');
+ criteriaField.value = vis.criteria;
+ card.appendChild(pathLabel);
+ card.appendChild(pathField);
+ card.appendChild(promptLabel);
+ card.appendChild(promptField);
+ card.appendChild(purposeLabel);
+ card.appendChild(purposeField);
+ card.appendChild(criteriaLabel);
+ card.appendChild(criteriaField);
+ list.appendChild(card);
+ });
+}
+
+function renderChecklist(){
+ const box = byId('qualityChecklist');
+ box.innerHTML = '';
+ let idx=0;
+ checklistGroups.forEach(g=>{
+ const card = document.createElement('div');
+ card.className = 'check-card';
+ card.innerHTML = `<h3>${g.title}</h3>` + g.items.map(t=>{
+ const key = 'check_'+idx++;
+ const checked = state.checklist[key] ? ' checked' : '';
+ return `<label class="check-item"><input type="checkbox" data-check="${key}"${checked}><span>${t}</span></label>`;
+ }).join('');
+ box.appendChild(card);
+ });
+ updateChecklistSummary();
+}
+
+function updateChecklistSummary(){
+ const all = document.querySelectorAll('[data-check]');
+ const done = document.querySelectorAll('[data-check]:checked');
+ const total = all.length;
+ const d = done.length;
+ const percent = total ? Math.round(d/total*100) : 0;
+ byId('doneCount').textContent = d;
+ byId('totalCount').textContent = total;
+ byId('readyPercent').textContent = percent+'%';
+ byId('scoreFill').style.width = percent+'%';
+ byId('readyStatus').textContent = percent>=90 ? 'Готово к защите' : (percent>=70 ? 'Почти готово' : (percent>=45 ? 'Требуется доработка' : (percent>0 ? 'Соберите доказательства' : 'Начните заполнение')));
+}
+
+function captureState(){
+ document.querySelectorAll('[data-team]').forEach(el=>state.team[Number(el.dataset.team)][el.dataset.field]=el.value);
+ document.querySelectorAll('[data-equipment]').forEach(el=>state.equipment[Number(el.dataset.equipment)][el.dataset.field]=el.value);
+ document.querySelectorAll('[data-photo]').forEach(el=>state.photos[Number(el.dataset.photo)][el.dataset.field]=el.value);
+ document.querySelectorAll('[data-visual]').forEach(el=>state.visuals[Number(el.dataset.visual)][el.dataset.field]=el.value);
+ document.querySelectorAll('[проверка данных]').forEach(el=>state.checklist[el.dataset.check]=el.checked);
+}
+
+функция saveDraft(){ 
+ captureState();
+ постоянные идентификаторы = ['projectTitle','objectType','roomNumber','audience','uniqueness','projectGoal','noBudgetPlan','budgetPlan','tco','workplaceErgo','restZone','serverNode','safetyAccess','finalProjectConclusion','implementationPlan'];
+ const fields={}; ids.forEach(id=>fields[id]=byId(id).value);
+ localStorage.setItem(storageKey, JSON.stringify({...fields, dynamic:state}));
+ alert('Черновик сохранён');
+}
+
+function loadDraft(){
+ const raw = localStorage.getItem(storageKey);
+ if(!raw) return;
+ try{
+ const saved = JSON.parse(raw);
+ Object.entries(saved).forEach(([k,v])=>{ if(k!=='dynamic'){ let el=byId(k); if(el) el.value=v; } });
+ if(saved.dynamic) state = {...state, ...saved.dynamic, photos: saved.dynamic.photos || state.photos, visuals: saved.dynamic.visuals || state.visuals};
+ } catch(e){}
+}
+
+document.addEventListener('ввод', (e)=>{ if(e.target.matches('ввод, текстовая область, выбор')) saveDraft(); });
+document.addEventListener('изменить', (e)=>{ if(e.target.matches('[проверка данных]')){ captureState(); updateChecklistSummary(); saveDraft(); } });
+byId('saveBtn').addEventListener('click', сохраненный файл);
+byId('clearBtn').addEventListener('click', ()=>{ if(confirm('Очистить черновик?')){ localStorage.removeItem(storageKey); location.reload(); } });
+function forcePassportValues(){
+ byId('projectTitle').value = 'Модернизация аудитории 6107';
+ const sel = byId('objectType'); for(let i=0;i<sel.options.length;i++) if(sel.options[i].text==='Учебная аудитория'){ sel.selectedIndex=i; break; }
+ byId('roomNumber').value = 'Корпус ФЭМ / аудитория 6107';
+ byId('audience').value = 'Студенты, преподаватели';
+ byId('uniqueness').value = 'Мы исследуем аудиторию № 6107 на факультете экономики и менеджмента. Наш проект отличается тем, что мы хотим создать комфортные условия для работы не только студентов, но и преподавателей.';
+ byId('projectGoal').value = 'Цель: студентам будет удобно заниматься за новыми партами и телевизорами, с которых даже с последних парт будет видно, что написано на доске; благодаря новому оборудованию для преподавателей повысится эффективность обучения, а в новой зоне отдыха студенты всегда будут приходить на пары вовремя и совершенствовать свои навыки общения с однокурсниками.';
+}
+
+function setAllCheckboxes(){
+ документ.querySelectorAll('[проверка данных]').forEach(cb=>{ cb.checked=true; state.checklist[cb.dataset.check]=true; });
+ updateChecklistSummary();
+}
+
+loadDraft(); 
+renderTeam();
+renderEquipment(); 
+renderPhotos(); 
+renderVisuals(); 
+renderChecklist();
+Значения forcepassport ();
+Установите флажки();
+
+document.addEventListener('mousemove', (e)=>{
+ const x=e.clientX/window.innerWidth, y=e.clientY/window.innerHeight; 
+ const earth=документ.querySelector('.earth');
+ if(earth) earth.style.transform=`перевести(${(x-0.5) * 15} пикселей, ${(y-0.5) * 10} пикселей)`;
+ документ.querySelectorAll('.circle').forEach((c,i)=>{ пусть s=0.03+i*0.005; c.стиль.transform=`перевести(${(x-0.5)*40* с} пикселей, ${(y-0.5)* 40* с} пикселей)`; });
+});
+</скрипт>
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Проект ИТ-инфраструктуры и рабочего пространства</title>
+ <style>
+ :root{
+ --bg:#0a0a1a; --card:#111128; --text:#e0e0ff; --muted:#8888aa; --line:#222244;
+ --primary:#ff3366; --primary2:#ff6699;
+ --soft:#ffb6c1;
+ --green:#0f766e;
+ --warn:#9a6700;
+ --bad:#b42318;
+ --ink:#0f172a;
+ --shadow:0 14px 36px rgba(0,0,0,.4); --radius:22px;
+ }
+ *{box-sizing:border-box}
+ body{
+ margin:0;
+ font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+ color:var(--text);
+ background: radial-gradient(ellipse at 20% 30%, #0d0d2b, #050510);
+ line-height:1.58;
+ overflow-x:hidden;
+ position:relative;
+ }
+ 
+ body::before{
+ content:"";
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+ radial-gradient(1px 1px at 70px 150px, #fff, rgba(0,0,0,0)),
+ radial-gradient(1px 1px at 150px 80px, #fff, rgba(0,0,0,0)),
+ радиально-градиентный (3px 3px при 300px 400px, #fff, rgba(0,0,0,0)), 
+ радиально-градиентный (2px 2px при 500px 200px, #fff, rgba(0,0,0,0)), 
+ радиально-градиентный (1px 1px при 800px 600px, #fff, rgba (0,0,0,0)), 
+ радиально-градиентный (2px 2px при 1000px 300px, #fff, rgba(0,0,0,0)), 
+ радиальный градиент (1px 1px при 900px 800px, #fff, rgba (0,0,0,0));
+ background-repeat:no-repeat;
+ background-size:200px 200px;
+ opacity:0.6;
+ pointer-events:none;
+ z-index:0;
+ }
+ 
+ body::after{
+ content:"";
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background-image:linear-gradient(rgba(100,100,255,0.03) 1px, transparent 1px),
+ linear-gradient(90deg, rgba(100,100,255,0.03) 1px, transparent 1px);
+ background-size:40px 40px;
+ pointer-events:none;
+ z-index:0;
+ }
+ 
+ .animated-bg{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ z-index:-2;
+ overflow:hidden;
+ }
+ .gradient-1{
+ position:absolute;
+ top:-30%;
+ left:-20%;
+ width:80%;
+ height:80%;
+ background:radial-gradient(circle, rgba(255,51,102,0.25) 0%, rgba(255,51,102,0) 70%);
+ border-radius:50%;
+ animation:float1 18s ease-in-out infinite;
+ filter:blur(60px);
+ }
+ .gradient-2{
+ position:absolute;
+ bottom:-20%;
+ right:-10%;
+ width:70%;
+ height:70%;
+ background:radial-gradient(circle, rgba(100,80,255,0.3) 0%, rgba(100,80,255,0) 70%);
+ border-radius:50%;
+ animation:float2 22s ease-in-out infinite;
+ filter:blur(60px);
+ }
+ .gradient-3{
+ position:absolute;
+ top:40%;
+ left:30%;
+ width:60%;
+ height:60%;
+ background:radial-gradient(circle, rgba(255,51,102,0.2) 0%, rgba(255,51,102,0) 70%);
+ border-radius:50%;
+ animation:float3 25s ease-in-out infinite;
+ filter:blur(60px);
+ }
+ 
+ @keyframes float1{
+ 0%{transform:translate(0,0) scale(1);}
+ 50%{transform:translate(5%,3%) scale(1.05);}
+ 100%{transform:translate(0,0) scale(1);}
+ }
+ @keyframes float2{
+ 0%{transform:translate(0,0) scale(1);}
+ 50%{transform:translate(-4%,-6%) scale(1.08);}
+ 100%{transform:translate(0,0) scale(1);}
+ }
+ @keyframes float3{
+ 0%{transform:translate(0,0) scale(1);}
+ 50%{transform:translate(3%,-4%) scale(1.1);}
+ 100%{transform:translate(0,0) scale(1);}
+ }
+ 
+ .floating-circles{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ z-index:-1;
+ pointer-events:none;
+ }
+ .circle{
+ position:absolute;
+ background:rgba(255,51,102,0.15);
+ border-radius:50%;
+ filter:blur(40px);
+ animation:drift 20s infinite linear;
+ }
+ .circle:nth-child(1){width:300px;height:300px;top:10%;left:-10%;opacity:0.5;animation-duration:25s;}
+ .circle:nth-child(2){width:200px;height:200px;bottom:15%;right:-5%;opacity:0.4;animation-duration:30s;animation-delay:-5s;}
+ .circle:nth-child(3){width:350px;height:350px;top:40%;left:60%;opacity:0.3;animation-duration:35s;animation-delay:-10s;}
+ .circle:nth-child(4){width:150px;height:150px;top:70%;left:20%;opacity:0.35;animation-duration:22s;animation-delay:-3s;}
+ .circle:nth-child(5){width:250px;height:250px;top:20%;right:20%;opacity:0.25;animation-duration:28s;animation-delay:-7s;}
+ .circle:nth-child(6){width:180px;height:180px;bottom:30%;left:40%;opacity:0.3;animation-duration:32s;}
+ 
+ @keyframes drift{
+ 0%{transform:translate(0,0) rotate(0deg);}
+ 33%{transform:translate(2%,-2%) rotate(120deg);}
+ 66%{transform:translate(-1%,1.5%) rotate(240deg);}
+ 100%{transform:translate(0,0) rotate(360deg);}
+ }
+ 
+ .shooting-stars{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ pointer-events:none;
+ z-index:0;
+ overflow:hidden;
+ }
+ .падающая звезда{
+ position:absolute;
+ width:2px;
+ height:80px;
+ background:linear-gradient(180deg, #fff, rgba(255,255,255,0));
+ border-radius:50%;
+ opacity:0;
+ animation:shoot 3s linear infinite;
+ filter:blur(1px);
+ }
+ .shooting-star::before{
+ content:"";
+ position:absolute;
+ top:0;
+ left:-2px;
+ width:6px;
+ height:6px;
+ background:#fff;
+ border-radius:50%;
+ box-shadow:0 0 10px #fff, 0 0 20px rgba(255,51,102,0.5);
+ }
+ @keyframes shoot{
+ 0%{
+ transform:translateX(0) translateY(0) rotate(45deg);
+ opacity:0;
+ }
+ 10%{
+ opacity:1;
+ }
+ 80%{
+ opacity:0.8;
+ }
+ 100%{
+ transform:translateX(-400px) translateY(400px) rotate(45deg);
+ opacity:0;
+ }
+ }
+ .shooting-star:nth-child(1){top:10%; left:80%; animation-delay:0s; animation-duration:2.5s; height:60px;}
+ .shooting-star:nth-child(2){top:30%; left:60%; animation-delay:1.2s; animation-duration:3s; height:100px;}
+ .shooting-star:nth-child(3){top:50%; left:90%; animation-delay:2.5s; animation-duration:2.8s; height:70px;}
+ .shooting-star:nth-child(4){top:70%; left:40%; animation-delay:0.8s; animation-duration:3.2s; height:90px;}
+ .shooting-star:nth-child(5){top:20%; left:20%; animation-delay:3s; animation-duration:2.2s; height:50px;}
+ .shooting-star:nth-child(6){top:80%; left:70%; animation-delay:1.8s; animation-duration:3.5s; height:80px;}
+ .shooting-star:nth-child(7){top:40%; left:10%; animation-delay:4s; animation-duration:2.7s; height:65px;}
+ .shooting-star:nth-child(8){top:60%; left:50%; animation-delay:0.5s; animation-duration:3.8s; height:110px;}
+ .shooting-star:nth-child(9){top:15%; left:95%; animation-delay:2.2s; animation-duration:2.9s; height:55px;}
+ .shooting-star:nth-child(10){top:85%; left:30%; animation-delay:3.5s; animation-duration:3.1s; height:75px;}
+ .shooting-star:nth-child(11){top:5%; left:45%; animation-delay:1s; animation-duration:2.6s; height:85px;}
+ .shooting-star:nth-child(12){top:55%; left:85%; animation-delay:2.8s; animation-duration:3.3s; height:95px;}
+ 
+ .earth{
+ position:fixed;
+ top:40px;
+ right:40px;
+ width:140px;
+ height:140px;
+ border-radius:50%;
+ background-image:url('https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg');
+ background-size:cover;
+ background-position:center;
+ box-shadow:0 0 20px rgba(100,150,255,0.5), 0 0 40px rgba(80,120,255,0.3);
+ z-index:0;
+ pointer-events:none;
+ transition:transform 0.1s ease-out;
+ }
+ 
+ .wrap{
+ max-width:1140px;
+ margin:0 auto;
+ padding:28px 18px 56px;
+ position:relative;
+ z-index:2;
+ }
+ .hero{
+ background:linear-gradient(135deg, rgba(255,51,102,0.2) 0%, rgba(100,80,255,0.2) 100%);
+ backdrop-filter:blur(10px);
+ border:1px solid rgba(255,51,102,0.3);
+ color:#fff; border-radius:28px; padding:28px 26px; box-shadow:var(--shadow);
+ transition:transform 0.2s ease, box-shadow 0.2s ease;
+ }
+ .hero:hover{
+ transform:translateY(-3px);
+ box-shadow:0 20px 40px rgba(255,51,102,0.2);
+ }
+ .eyebrow{
+ display:inline-block; padding:7px 12px; border-radius:999px;
+ background:rgba(255,51,102,0.2); border:1px solid rgba(255,51,102,0.4);
+ font-size:13px; font-weight:700; letter-spacing:.02em; margin-bottom:14px;
+ transition:background 0.2s ease, transform 0.2s ease;
+ }
+ .hero:hover .eyebrow{
+ background:rgba(255,51,102,0.3);
+ transform:translateX(3px);
+ }
+ h1{margin:0; font-size:clamp(28px,4vw,42px); line-height:1.08;}
+ h2{margin:0 0 10px; font-size:26px; line-height:1.15;}
+ h3{margin:0 0 8px; font-size:19px; line-height:1.22;}
+ .hero p{margin:14px 0 0; max-width:900px; font-size:17px; opacity:.98;}
+ .nav{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+ .btn{
+ text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+ padding:11px 16px; border-radius:14px; font-weight:700; transition:all 0.25s ease;
+ border:1px solid transparent; cursor:pointer; font:inherit;
+ }
+ .btn.primary{background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%); color:#fff;}
+ .btn.secondary{background:rgba(20,20,45,0.8); color:#ff6699; border-color:rgba(255,51,102,0.4);}
+ .btn.secondary:hover{background:rgba(255,51,102,0.2); transform:translateY(-2px);}
+ .btn.action{background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%); color:#fff; box-shadow:0 10px 24px rgba(255,51,102,.3);}
+ .btn.warn{background:rgba(30,30,60,0.6); color:#cccccc; border-color:#8888aa;}
+ .btn:hover{transform:translateY(-2px);}
+ .section{
+ margin-top:18px; background:rgba(17,17,40,0.8);
+ backdrop-filter:blur(5px);
+ border-radius:var(--radius);
+ box-shadow:var(--shadow); border:1px solid rgba(100,80,255,0.2);
+ padding:24px 22px;
+ transition:transform 0.2s ease, box-shadow 0.2s ease;
+ }
+ .section:hover{
+ transform:translateY(-2px);
+ box-shadow:0 18px 40px rgba(0,0,0,.3);
+ border-color:rgba(255,51,102,0.3);
+ }
+ .lead{margin:0 0 14px; color:var(--muted); font-size:16px;}
+ .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+ .grid.three{grid-template-columns:repeat(3,1fr);}
+ .card{
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:16px;
+ background:rgba(20,20,45,0.6);
+ backdrop-filter:blur(4px);
+ transition:transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s ease, border-color 0.2s ease;
+ }
+ .card:hover{
+ transform:translateY(-8px) scale(1.01);
+ box-shadow:0 24px 40px rgba(0,0,0,0.4);
+ border-color:#ff3366;
+ }
+ .card p{margin:0; color:var(--muted);}
+ .note{
+ border-radius:18px; padding:16px 18px;
+ border:1px solid rgba(255,51,102,0.3);
+ background:rgba(255,51,102,0.1);
+ transition:all 0.25s ease;
+ }
+ .note:hover{
+ background:rgba(255,51,102,0.15);
+ transform:translateY(-3px);
+ box-shadow:0 12px 24px rgba(255,51,102,0.1);
+ }
+ .note strong{color:#ff6699;}
+ .warn-box{
+ border-radius:18px; padding:16px 18px;
+ border:1px solid rgba(80,80,120,0.5);
+ background:rgba(30,30,60,0.6);
+ }
+ .warn-box strong{color:#ffccaa;}
+ .field, textarea, select{
+ width:100%; border:1px solid rgba(100,80,255,0.3); border-radius:14px; padding:12px 14px;
+ font:inherit; color:var(--text); background:rgba(20,20,45,0.8);
+ }
+ textarea{min-height:116px; resize:vertical;}
+ .small{min-height:86px;}
+ label.caption{display:block; font-weight:700; margin:0 0 7px;}
+ .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+ .form-grid .wide{grid-column:1 / -1;}
+ .row-list{display:grid; gap:12px;}
+ .dynamic-row{
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
+ background:rgba(20,20,45,0.5);
+ display:grid; gap:12px;
+ transition:transform 0.2s ease, box-shadow 0.2s ease;
+ }
+ .dynamic-row:hover{
+ transform:translateX(4px);
+ box-shadow:0 6px 14px rgba(255,51,102,0.1);
+ }
+ .row-head{display:flex; align-items:center; gap:15px; margin-bottom:6px;}
+ .row-title{font-weight:800; color:#ff6699; font-size:1.1rem;}
+ 
+ /* Стиль квадрата участника с фото */
+ .member-photo {
+ width: 70px;
+ height: 70px;
+ border-radius: 18px;
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ box-shadow: 0 6px 14px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,51,102,0.3);
+ transition: transform 0.2s ease, box-shadow 0.2s ease;
+ flex-shrink: 0;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 28px;
+ font-weight: bold;
+ color: white;
+ text-shadow: 0 1px 2px black;
+ background-color: #2a2a4a;
+ }
+ .member-photo:hover {
+ transform: scale(1.02);
+ box-shadow: 0 8px 18px rgba(255,51,102,0.4);
+ }
+ .member-photo.fallback {
+ background: linear-gradient(135deg, #ff3366, #882244);
+ }
+ 
+ .mini-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+ .two-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+ .media-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+ .media-card{
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
+ background:rgba(20,20,45,0.5);
+ transition:transform 0.2s ease, box-shadow 0.2s ease;
+ }
+ .media-card:hover{
+ transform:translateY(-4px);
+ box-shadow:0 12px 24px rgba(255,51,102,0.1);
+ }
+ .media-preview{
+ width:100%;
+ min-height:200px;
+ border:2px dashed rgba(100,80,255,0.4);
+ border-radius:16px;
+ background:rgba(30,30,60,0.5);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ color:var(--muted);
+ overflow:hidden;
+ padding:12px;
+ margin:8px 0 12px;
+ }
+ .media-preview img{
+ width:100%;
+ height:auto;
+ max-height:200px;
+ object-fit:contain;
+ border-radius:12px;
+ display:block;
+ margin:0 auto;
+ transition:transform 0.3s ease;
+ }
+ .check-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+ .check-card{
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
+ background:rgba(20,20,45,0.5);
+ transition:transform 0.2s ease;
+ }
+ .check-card:hover{
+ transform:translateY(-3px);
+ }
+ .check-card h3{font-size:18px;}
+ .check-item{display:flex; gap:9px; align-items:flex-start; padding:8px 0; border-top:1px dashed rgba(100,80,255,0.3);}
+ .check-item:first-of-type{border-top:0;}
+ .check-item input{margin-top:5px; transition:transform 0.1s ease;}
+ .check-item input:hover{transform:scale(1.1);}
+ .score-bar{height:12px; border-radius:999px; background:#2a2a4a; overflow:hidden;}
+ .score-fill{height:100%; width:0%; background:linear-gradient(90deg,#ff3366 0%, #ff6699 100%); transition:.2s ease;}
+ .summary{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px;}
+ .sum-card{
+ background:rgba(20,20,45,0.7); border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:16px;
+ transition:transform 0.2s ease;
+ }
+ .sum-card:hover{transform:translateY(-3px);}
+ .sum-card strong{display:block; font-size:14px; color:var(--muted);}
+ .big{font-size:34px; font-weight:800; color:#ff6699; line-height:1; margin-top:8px;}
+ .pill{
+ display:inline-block; background:rgba(255,51,102,0.2); color:#ff6699; padding:6px 10px;
+ border-radius:999px; font-size:13px; font-weight:700; margin:0 8px 8px 0;
+ transition:background 0.2s ease, transform 0.15s ease;
+ }
+ .pill:hover{
+ background:rgba(255,51,102,0.4);
+ transform:scale(1.02);
+ }
+ .steps{display:grid; gap:12px;}
+ .step{
+ display:grid; grid-template-columns:52px 1fr; gap:14px; align-items:flex-start;
+ border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
+ transition:all 0.25s ease;
+ background:rgba(17,17,40,0.5);
+ }
+ .step:hover{
+ border-color:#ff3366;
+ background:rgba(30,30,60,0.7);
+ transform:translateX(6px);
+ box-shadow:0 8px 20px rgba(255,51,102,0.15);
+ }
+ .num{
+ width:52px; height:52px; border-radius:16px;
+ background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%);
+ color:#fff;
+ display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:800;
+ box-shadow:0 2px 8px rgba(255,51,102,0.3);
+ transition:all 0.2s ease;
+ }
+ .step:hover .num{
+ transform:scale(1.05);
+ box-shadow:0 4px 14px rgba(255,51,102,0.5);
+ }
+ .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
+ .footer{
+ margin-top:18px; text-align:center; color:var(--muted); font-size:14px;
+ transition:opacity 0.2s ease;
+ }
+ .footer:hover{opacity:0.7;}
+ @media (max-width: 640px){
+ .member-photo { width: 55px; height: 55px; font-size: 22px; }
+ .row-head { gap: 10px; }
+ }
+ @media (max-width: 960px){
+ .grid,.grid.three,.form-grid,.mini-grid,.two-grid,.media-grid,.check-grid,.summary{grid-template-columns:1fr;}
+ .form-grid .wide{grid-column:auto;}
+ .earth{width:90px;height:90px;top:20px;right:20px;}
+ }
+ @media print{
+ body{background:#fff}
+ .hero,.section{box-shadow:none}
+ .nav,.actions,.remove-btn,.file-input{display:none !important}
+ .animated-bg,.floating-circles,.shooting-stars,.earth,body::before,body::after{display:none !important}
+ .section{break-inside:avoid}
+ }
+ </style>
+</head>
+<body>
+ <div class="animated-bg">
+ <div class="gradient-1"></div>
+ <div class="gradient-2"></div>
+ <div class="gradient-3"></div>
+ </div>
+ <div class="floating-circles">
+ <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+ <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+ </div>
+ <div class="падающие звезды">
+ <div class="падающая звезда"></div><div class="падающая звезда"></div><div class="падающая звезда"></div>
+ <div class="падающая звезда"></div><div class="падающая звезда"></div><div class="падающая звезда"></div>
+ <div class="падающая звезда"></div><div class="падающая звезда"></div><div class="падающая звезда"></div>
+ <div class="падающая звезда"></div><div class="падающая звезда"></div><div class="падающая звезда"></div>
+ </div>
+ <div class="земля"></div>
+
+ <div class="обертка">
+ <section class="hero">
+ <div class="eyebrow">Проектное задание</div>
+ <h1>Закупка оборудования, ИТ-инфраструктура и организация рабочего пространства</h1>
+ <p>Выберите реальную аудиторию, зону института, рабочее место или организацию. Проведите аудит, подтвердите выводы фотографиями, предложите улучшения, составьте смету и соберите собственный многостраничный HTML-проект для публикации на GitHub Pages. </p>
+ <div class="nav">
+ <a class="btn primary" href="index.html">Главная страница</a>
+ <a class="btn secondary" href="student_checklist_interactive.html">Базовый чек-лист</a>
+ <a class="btn secondary" href="student_report_template.html">Шаблон отчета</a>
+ <a class="btn secondary" href="student_publish_site_guide.html">Публикация сайта</a>
+ </div>
+ </раздел>
+
+ <!-- Раздел "Итог работы" УДАЛЁН по требованию пользователя -->
+
+ <класс раздела="section">
+ <h2>1. Паспорт проекта</h2>
+ <div class="form-grid">
+ <div><label class="caption" for="projectTitle">Название проекта</label><input class="field" id="projectTitle" type="text" value="Модернизация аудитории 6107" /></div>
+ <div><label class="caption" for="objectType">Тип объекта</label><select id="objectType"><option selected>Учебная аудитория</option><option>Компьютерный класс</option><option>Рабочее место преподавателя</option><option>Зона отдыха студентов</option><option>Серверный узел / сетевая зона</option><option>Офисное рабочее место</option><option>Другое пространство</option></select></div>
+ <div><label class="caption" for="roomNumber">Номер аудитории / название организации</label><input class="field" id="roomNumber" type="text" value="Корпус ФЭМ / аудитория 6107" /></div>
+ <div><label class="caption" for="audience">Целевая аудитория</label><input class="field" id="audience" type="text" value="Студенты, преподаватели" /></div>
+ <div class="wide"><label class="caption" for="uniqueness">Почему выбранный объект не повторяет чужой проект</label><textarea id="uniqueness" class="small">Мы изучаем аудиторию № 6107 на факультете экономики и менеджмента. Наш проект отличается тем, что мы хотим создать комфортные условия для работы не только студентов, но и преподавателей. </textarea></div>
+ <div class="wide"><label class="caption" for="projectGoal">Цель улучшения</label><textarea id="projectGoal">Цель: студентам будет удобно заниматься с новыми партами и телевизорами, с которых будет видно даже с последних парт, что написано на доске; производительность обучения станет выше с новым оборудованием для преподавателей, а с новой зоной для отдыха студенты будут всегда приходить вовремя на пары и будут совершенствовать свои навыки общения с сокурсниками.</textarea></div>
+ </div>
+ </section>
+ <section class="section">
+ <h2>2. Команда и обязанности</h2>
+ <p class="lead">Каждому участнику соответствует фотография из папки <code>Cosmos</code> (при отсутствии файла отображаются инициалы).</p>
+ <div id="teamList" class="row-list"></div>
+ </section>
+
+ <section class="section">
+ <h2>3. Универсальный стандарт анализа</h2>
+ <div class="steps">
+ <div class="step"><div class="num">1</div><div><h3>Сценарии работы</h3><p class="lead">Кто пользуется пространством, сколько людей одновременно, какие задачи выполняются, какая нагрузка на технику и сеть.</p></div></div>
+ <div class="step"><div class="num">2</div><div><h3>Текущее состояние</h3><p class="lead">Что уже есть: мебель, компьютеры, периферия, розетки, освещение, вентиляция, сеть, серверный шкаф или слаботочный узел.</p></div></div>
+ <div class="step"><div class="num">3</div><div><h3>Требования</h3><p class="lead">Минимальный, рекомендуемый и перспективный уровень оснащения, эргономики, безопасности и обслуживания.</p></div></div>
+ <div class="step"><div class="num">4</div><div><h3>Варианты решения</h3><p class="lead">Без бюджета, малый бюджет, базовая закупка, расширенная закупка. Для каждого варианта нужны эффект и ограничения.</p></div></div>
+ <div class="step"><div class="num">5</div><div><h3>Смета и жизненный цикл</h3><p class="lead">Цена покупки, расходные материалы, обслуживание, срок службы, возможность модернизации, риски простоя и итоговая стоимость владения.</p></div></div>
+ <div class="step"><div class="num">6</div><div><h3>Защита проекта</h3><p class="lead">Почему именно это решение подходит выбранной аудитории, какие доказательства собраны и как можно реализовать проект по этапам.</p></div></div>
+ </div>
+ </section>
+ <section class="section">
+ <h2>4. Полевой аудит и реальные фотографии</h2>
+ <p class="lead">Посетите выбранное место лично. Добавьте фотографии текущего состояния, подписи и выводы. Файлы должны лежать по указанным путям (папка <code>images</code>).</p>
+ <div id="Фотолист" class="медиа-сетка"></div>
+ </section>
+
+ <section class="секция">
+ <h2>5. Проект закупки оборудования</h2>
+ <p class="lead">Подбирайте оборудование под задачи пользователей, а не просто по максимальным характеристикам.</p>
+ <div id="equipmentList" class="row-list"></div>
+ <div class="grid" style="margin-top:14px;">
+ <div class="card"><h3>Решения без бюджета или с минимальными затратами</h3><textarea id="noBudgetPlan" class="small">Перестановка задних парт в складское помещение, прокладка кабелей, график проветривания, настройка мониторов по высоте, подключение мониторов к интерактивной доске, озеленение кабинета.</textarea></div>
+ <div class="card"><h3>Решения по закупкам</h3><textarea id="budgetPlan" class="small">Новые мониторы, ПК для преподавателя, мышь, лампы, коврик для мыши, новые парты, новые стулья, журнальные столики, диваны, тумба, кофемашина.</textarea></div>
+ </div>
+ <div style="margin-top:14px;"><label class="caption" for="tco">Итоговая логика бюджета и стоимости владения</label><textarea id="tco" class="small">Общая стоимость закупки оборудования (12 позиций) составляет ориентировочно 1 074 000 рублей. Ключевые затраты: парты для учеников (21 шт. ? 7 000 руб. = 147 000 руб.), мониторы для учеников (21 шт. ? 15 000 руб. = 315 000 руб.), стулья для учеников (42 шт. ? 5 000 руб. = 210 000 руб.). Остальные позиции: кресло преподавателя (25 000 руб.), монитор преподавателя (32 000 руб.), угловой стол (18 000 руб.), кофемашина (22 000 руб.), диваны (3 шт. ? 35 000 руб. = 105 000 руб.), тумба (8 500 руб.), кофейные столики (2 шт. ? 4 000 руб. = 8 000 руб.), лампа (3 500 руб.), меловая доска (4 500 руб.). Срок службы оборудования: мебель и диваны – 7–10 лет, мониторы и техника – 5–7 лет. Расходные материалы: замена ламп в системе освещения раз в 3–4 года (~2000 руб.), обслуживание кофемашины (чистка, замена капсул) — ~5000 руб./год. Обслуживание ПК и мониторов — профилактика и мелкий ремонт — ~10 000 руб./год. Возможна модернизация: мониторы можно обновлять по одному, увеличить объем оперативной памяти в ПК преподавателя. Риски простоя минимальны, так как оборудование поставляется от проверенных поставщиков. Закупка рациональна, так как позволяет повысить комфорт обучения, увеличить мотивацию студентов и преподавателей, снизить утомляемость и улучшить видимость учебных материалов. Окупаемость выражается в повышении качества образования и сохранении здоровья.</textarea></div>
+ </секция>
+
+ <класс секции="секция">
+ <h2>6. Эргономика, зоны отдыха и серверные узлы</h2>
+ <div class="grid">
+ <div class="card"><h3>Рабочие места</h3><textarea id="workplaceErgo" class="small">Столы старые, не регулируются по высоте, что приводит к неправильной посадке. Мониторы стоят слишком низко — нужны подставки или регулируемые кронштейны. Расстояние от последних парт до интерактивной доски слишком большое, шрифт мелкий. Предлагается: заменить парты на регулируемые по высоте, оснастить каждый стол подставкой для монитора, установить эргономичные кресла с поясничной поддержкой. Для улучшения освещения добавить настольные лампы с регулируемой яркостью. </textarea></div>
+ <div class="card"><h3>Зоны отдыха и восстановления</h3><textarea id="restZone" class="small">В настоящее время в аудитории нет места для отдыха или перерывов. Студенты вынуждены сидеть за партами даже во время перемен. Предлагается организовать зону отдыха у окна: два мягких дивана, журнальные столики, тумба для зарядки гаджетов, кофемашина. Это позволит студентам и преподавателям восстанавливать концентрацию, общаться в неформальной обстановке и заряжать устройства. </textarea></div>
+ <div class="card"><h3>Сеть и серверный узел</h3><textarea id="serverNode" class="small">В аудитории есть несколько розеток, но их недостаточно для подключения всех ноутбуков. Wi-Fi работает нестабильно из-за старых точек доступа. Проводная сеть отсутствует. Предлагается: установить дополнительные розетки (по две на парту), смонтировать новый Wi-Fi-роутер с поддержкой Wi-Fi 6, проложить кабели к компьютеру преподавателя и интерактивной доске. Для серверного узла (при необходимости) выделить шкаф в подсобном помещении с отдельной вентиляцией. </textarea></div>
+ <div class="card"><h3>Безопасность и доступность</h3><textarea id="safetyAccess" class="small">Текущее состояние: провода от удлинителей лежат на проходе, создавая опасность споткнуться. Парты загромождают проходы между рядами. Нет тактильных указателей для слабовидящих. Предлагается: организовать кабельные каналы и скрытую проводку, расширить проходы за счёт перестановки парт, установить световые указатели выхода, предусмотреть места для колясок и маломобильных студентов у входа.</textarea></div>
+ </div>
+ </section>
+
+ <класс раздела="section">
+ <h2>7. AI-визуализации будущего пространства</h2>
+ <p class="lead">Добавьте не менее 4 визуализаций. Для каждой укажите промпт, назначение изображения и что именно оно помогает доказать.</p>
+ <div id="visualList" class="media-grid"></div>
+ </section>
+
+ <section class="секция">
+ <h2>8. Обязательный чек-лист по контролю качества</h2>
+ <div class="summary"><div class="sum-card"><strong>Закрыто пунктов</strong><div class="big" id="doneCount">0</div></div><div class="sum-card"><strong>Всего пунктов</strong><div class="big" id="totalCount">0</div></div><div class="sum-card"><strong>Готовность</strong><div class="big" id="readyPercent">0%</div></div><div class="sum-card"><strong>Статус</strong><div id="readyStatus" style="margin-top:8px; font-weight:800;">Начните заполнение</div></div></div>
+ <div class="score-bar" style="margin-top:12px;"><div class="score-fill" id="scoreFill"></div></div>
+ <div id="qualityChecklist" class="check-grid" style="margin-top:14px;"></div>
+ </раздел>
+
+ <класс раздела="раздел">
+ <h2>9. Структура итогового HTML-сайта</h2>
+ <div class="сетка">
+ <div class="card"><h3>Обязательные страницы</h3><ul><li><strong>index.html</strong> - входная страница проекта и краткое резюме;</li><li><strong>audit.html</strong> - фотофиксация, проблемы и результаты чек-листов;</li><li><strong>equipment.html</strong> - закупка, смета, обоснование оборудования;</li><li><strong>ergonomics.html</strong> - планировка, рабочие места, зона отдыха, серверный узел;</li><li><strong>visuals.html</strong> - минимум 4 AI-визуализаций с промптами;</li><li><strong>reflection.html</strong> - личные выводы участников и вклад команды.</li></ul></div>
+ <div class="card"><h3>Что нельзя сдавать</h3><ul><li>текст без фотографий выбранного места;</li><li>универсальные советы без привязки к аудитории или организации;</li><li>картинки без объяснения, какую проблему они решают;</li><li>смету без обоснования выбора оборудования;</li><li>командную работу без личных выводов каждого участника.</li></ul></div>
+ </div>
+ <div class="warn-box" style="margin-top:14px;"><strong>Важно:</strong> тема программного обеспечения будет отдельным заключительным этапом курса. В этой работе можно кратко обозначить потребности в программном обеспечении, но основное внимание следует уделить аппаратному обеспечению, пространству, эргономике, сети и реалистичности внедрения.</div>
+ </section>
+
+ <section class="section">
+ <h2>10. Итоговые выводы</h2>
+ <div class="grid">
+ <div class="card"><h3>Общий вывод по проекту</h3><textarea id="finalProjectConclusion" class="small">Проведенный аудит аудитории 6107 (корпус ФЭМ) выявил ряд критических проблем: неудобные старые парты, недостаточное освещение, отсутствие зоны отдыха, нестабильный Wi-Fi, нехватка розеток, устаревшее оборудование для преподавателя и небезопасная прокладка кабелей. В рамках проекта предложен комплекс решений, разделенных на быстрые бесплатные действия (перестановка задних парт, прокладка кабелей, настройка мониторов, график проветривания) и бюджетные вложения (новые парты, стулья, ПК для преподавателя, мониторы, диваны, журнальные столики, кофемашина, Wi-Fi-роутер, дополнительные розетки). Реализация проекта позволит повысить комфорт студентов и преподавателей, улучшить видимость учебных материалов, обеспечить удобное рабочее место для преподавателя, создать зону отдыха для восстановления концентрации и общения, а также повысить общую безопасность и доступность пространства. Проект является реалистичным, поскольку сочетает в себе быстро реализуемые меры с поэтапной закупкой оборудования, а его экономическая эффективность выражается в повышении качества обучения и снижении утомляемости учащихся. </textarea></div>
+ <div class="card"><h3>План внедрения по этапам</h3><textarea id="implementationPlan" class="small">Этап 1 (1–2 недели, без бюджета): перестановка задних парт, кабельная организация, настройка мониторов, подключение мониторов к доске, график проветривания, растения.\n\nЭтап 2 (3–4 недели, малый бюджет): дополнительные розетки, новый Wi-Fi роутер, прокладка кабеля, настольные лампы.\n\nЭтап 3 (1–2 месяца, основной бюджет): замена парт и стульев на эргономичные, закупка ПК, монитора, мыши, коврика для преподавателя, установка зоны отдыха: диваны, кофейные столики, тумба для зарядки, кофе-машина.\n\nЭтап 4 (контроль и обслуживание): регулярная проверка кабелей, обновление ПО, сбор обратной связи.</textarea></div>
+ </div>
+ <div class="note" style="margin-top:14px;"><strong>Хорошая защита проекта</strong> объединяет в себе реальные наблюдения, фотографии, смету, ограничения помещения, потребности пользователей и понятный эффект от внедрения.</div>
+ <div class="actions"><button class="btn action" id="saveBtn" type="button">Сохранить черновик</button><button class="btn warn" id="clearBtn" type="button">Очистить черновик</button></div>
+ </section>
+ <div class="footer">После заполнения перенесите материалы на собственные HTML-страницы, проверьте ссылки и опубликуйте проект на GitHub Pages.</div>
+ </div>
+
+<script>
+const storageKey = 'workspaceInfrastructureProjectDraft';
+const checklistGroups = [
+ {title:'Объект и доказательства', items:['Выбран конкретный объект: аудитория, зона, рабоче место или организация.','Объяснено, почему проект не повторяет работы других студентов.','Есть реальные фотографии текущего состояния объекта.','Проблемы подтверждаются наблюдениями, а не только личными ощущениями.']},
+ {title:'Пользователи и сценарии', items:['Описана целевая аудитория и количество пользователей.','Перечислены основные задачи, которые выполняются в пространстве.','Показано, какие требования эти задачи создают к технике, мебели, свету и сети.','Учтены ограничения помещения, расписания, бюджета или доступа.']},
+ {title:'Аппаратное обеспечение', items:['Оборудование подобрано под задачи, а не по принципу максимальных характеристик.','Для каждой позиции закупки указано назначение и обоснование.','Есть ориентировочная стоимость и количество единиц.','Учтены обслуживание, срок службы, модернизация и расходники.']},
+ {title:'Эргономика и пространство', items:['Рассмотрены столы, кресла, посадка, высота экранов и освещение.','Предложены улучшения без бюджета или с минимальными затратами.','Продумана зона отдыха, восстановления или короткой самостоятельной работы.','Решения не ухудшают проходы, безопасность и доступность пространства.']},
+ {title:'Сеть, серверный узел и безопасность', items:['Оценены Wi-Fi, сетевые розетки, кабели и потребность в коммутаторе.','Если уместно, описан серверный шкаф, ИБП, вентиляция и ограничение доступа.','Учтены электробезопасность, нагрузка на розетки и кабельная организация.','Показаны риски простоя, перегрева, повреждения или несанкционированного доступа.']},
+ {title:'Визуализация и публикация', items:['Добавлено не менее 4 визуализаций будущего пространства.','Для каждой визуализации указан промпт или метод создания.','Итоговый проект оформлен как многостраничный HTML-сайт.','Сайт опубликован в публичном репозитории через GitHub Pages.']},
+ {title:'Командная работа и выводы', items:['Указаны участники команды и обязанности каждого.','Каждый участник написал собственный вывод о проделанном исследовании.','Команда показала, какие решения можно реализовать сейчас, а какие требуют бюджета.','Итоговый вывод связывает аудит, смету, эргономику, инфраструктуру и эффект.']}
+];
+
+let state = {
+ team: [
+ {name:'Плеханов Вячеслав Витальевич', role:'HTML', duties:'Написание кода с исправлением ошибок', conclusion:'Честно говоря, раньше я думал, что вёрстка — это просто «накидать тегов». Но когда мы начали этот проект, я понял, как много зависит от правильной структуры и адаптивности. Теперь я сам удивляюсь, как круто, когда сайт красиво смотрится и на ноутбуке, и на телефоне. А ещё я научился не бояться ошибок в коде — браузер и консоль стали моими лучшими друзьями :)'},
+ {name:'Быков Роман Павлович', role:'HTML', duties:'Написание кода с исправлением ошибок', conclusion:'До этого проекта я думал, что HTML — это скучно и просто. Но когда мы делали эту страницу с кучей динамических блоков, я понял, как важно всё структурировать. И ещё — работать в команде оказалось сложнее, чем одному, но когда мы вместе исправляли баги, это было по-настоящему круто. Теперь я точно знаю, что хочу углубиться в фронтенд».},
+ {name: «Дорохова Ульяна Алексеевна», role: «Аудит», duties: «Опрос студентов о проблемной аудитории», conclusion: «Оказалось, что студенты очень хотят перемен! Когда я обходила группу и спрашивала, что их раздражает в аудитории 6107, многие сразу начинали перечислять: «ужасный свет», «нет розеток», «парты неудобные». Я и не знала, что люди так переживают из-за таких мелочей. Было приятно, что нас поддержали. Теперь я вижу, что даже небольшой опрос может дать много ценной информации.},
+ {name:'Иванова Дарья Владленовна', role:'Аудит', duties:'Опрос студентов о проблемной аудитории', conclusion:'Самое интересное в моей работе — это то, что одни и те же проблемы называют совершенно разные люди. Например, о плохом освещении говорили и старшекурсники, и первокурсники. Это помогло нам не распыляться, а сосредоточиться на действительно важных вещах. Я научилась анализировать обратную связь и отличать личные капризы от системных проблем. Очень полезный опыт.'},
+ {name:'Зворыгина Эвелина', role:'Смета', duties:'Расчёт стоимости каждого нового оборудования', conclusion:'Если честно, я никогда не думала, что составление сметы — это так увлекательно! Пришлось облазить кучу сайтов, сравнить цены, подумать, где можно сэкономить, а где лучше не жадничать. Я поняла, что дешёвое не всегда плохое, а дорогое не всегда хорошее. Теперь я могу прикинуть бюджет для любого ремонта или закупки — это реально полезный навык в жизни.'},
+ {name:'Шаботина Екатерина Олеговна', role:'Дизайн', duties:'Редактирование фотографий в AI', conclusion:'Честно говоря, я впервые так плотно работала с нейросетями для обработки фотографий. Это волшебство! Я научилась за пару минут убирать с фотографий лишнее, улучшать освещение и даже создавать картинки «как будет выглядеть» с помощью промтов. Правда, иногда результат получался забавным — например, диваны вырастали до потолка, но если подобрать правильные слова, получается очень круто. Теперь я фанат ИИ-инструментов.'}
+ ],
+ оборудование: [
+ {name:'Кожаное кресло для преподавателя', specs:'Эргономичное, с регулировкой высоты', qty:'1 шт.', price:'25 000 руб.', reason:'Комфортное рабочее место', priority:'Обязательная'},
+ {name:'Монитор для преподавателя', specs:'27", 2K, IPS, антиблик', qty:'1 шт.', price:'32 000 руб.', reason:'Качественное изображение', priority:'Обязательная'},
+ {name:'Стол угловой для преподавателя', specs:'ЛДСП, 1600х1600 мм', qty:'1 шт.', price:'18 000 руб.', reason:'Организация пространства', priority:'Обязательная'},
+ {name:'Парты для учеников', specs:'Регулируемые по высоте, 1200х500 мм', qty:'21 шт.', price:'7 000 руб./шт.', reason:'Эргономичная посадка', priority:'Обязательная'},
+ {name:'Мониторы для учеников', specs:'24", Full HD, IPS', qty:'21 шт.', price:'15 000 руб./шт.', reason:'Снижение нагрузки на зрение', priority:'Обязательная'},
+ {name:'Стулья для учеников', specs:'Эргономичные, регулируемые', qty:'42 шт.', price:'5 000 руб./шт.', reason:'Комфорт спины', priority:'Обязательная'},
+ {name:'Маленькая доска меловая', specs:'1200х900 мм', qty:'1 шт.', price:'4 500 руб.', reason:'Дополнительные пояснения', priority:'Рекомендуемая'},
+ {name:'Кофемашина', specs:'Капсульная, 1500 Вт', qty:'1 шт.', price:'22 000 руб.', reason:'Комфортная атмосфера', priority:'Рекомендуемая'},
+ {name:'Диван', specs:'Мягкий, трёхместный', qty:'3 шт.', price:'35 000 руб./шт.', reason:'Зона отдыха', priority:'Рекомендуемая'},
+ {name:'Тумба', specs:'С розетками и USB', qty:'1 шт.', price:'8 500 руб.', reason:'Зарядка устройств', priority:'Рекомендуемая'},
+ {name:'Кофейные столики', specs:'Стеклянные, d=600 мм', qty:'2 шт.', price:'4 000 руб./шт.', reason:'Удобство в зоне отдыха', priority:'Рекомендуемая'},
+ {name:'Лампа', specs:'LED, регулируемая яркость', qty:'1 шт.', price:'3 500 руб.', reason:'Освещение вечером', priority:'Желательная'}
+ ],
+ photos: [
+ {path:'images/IMG_1258.jpeg', caption:'Отсутствие зоны отдыха', finding:'Нет зоны отдыха для студентов и преподавателя'},
+ {path:'images/IMG_1257.jpeg', caption:'Отсутствие зоны отдыха (другой ракурс)', finding:'Нет зоны отдыха для студентов и преподавателей (другой ракурс)'},
+ {path:'images/IMG_1259.jpeg', caption:'Общий вид аудитории', finding:'Неудобные парты, не видно доски с дальних парт'},
+ {path:'images/IMG_1256.jpeg', caption:'Рабочее место преподавателя', finding:'Не хватает современного ПК, удобного кресла и стола'},
+ {path:'images/IMG_1425.jpeg', caption:'Рабочее место студентов', finding:'Неудобные условия для обучения'}
+ ],
+ визуальные эффекты: [
+ {путь: 'images/IMG_1266.jpeg', подсказка: 'Модное преподавательское место', цель: 'Иллюстрация нового рабочего места', критерий: 'Демонстрирует улучшения'},
+ {path:'images/IMG_1267.jpeg', prompt:'Современная аудитория', purpose:'Вид от лица студентов', criteria:'Улучшение пространства для студентов'},
+ {path:'images/IMG_1268.jpeg', prompt:'Зона отдыха с мягкой мебелью', purpose:'Новая зона отдыха', criteria:'Решение проблемы отсутствия отдыха'},
+ {path:'images/IMG_1269.jpeg', prompt:'Современная зона отдыха с кофемашиной', purpose:'Зона отдыха с другого ракурса', criteria:'Решение проблемы отсутствия отдыха'},
+ {path:'images/IMG_1426.jpeg', prompt:'Удобные парты для обучения студентам', purpose:'Парты студентов', criteria:'Удобство новых парт для студентов'}
+ ], 
+ контрольный список:{}
+};
+
+функция byId(id){ вернуть документ.getElementById(id); }
+function escapeHtml(v){ return String(v||'').replace(/[&<>]/g, c => ({'&':'&amp;','<':'<','>':'>'}[c])); }
+
+// Массив путей к фото для каждого участника (индексы 0..5)
+const memberPhotoPaths = [
+ 'Cosmos/IMG_1418.jpeg', // участник 1 — изменено на IMG_1418.jpeg
+ 'Cosmos/IMG_1416.webp', // участник 2
+ 'Cosmos/IMG_1419.jpeg', // участник 3
+ 'Cosmos/IMG_1420.jpeg', // участник 4
+ 'Cosmos/IMG_1423.jpeg', // участник 5
+ 'Cosmos/IMG_1424.jpeg' // участник 6
+];
+const memberInitials = ['ВП','РБ','УД','ДИ','ЗЭ','КШ'];
+function renderTeam(){
+ const list = byId('teamList');
+ list.innerHTML = '';
+ state.team.forEach((member, idx) => {
+ const row = document.createElement('div');
+ row.className = 'dynamic-row';
+ const photoUrl = memberPhotoPaths[idx];
+ const squareDiv = document.createElement('div');
+ squareDiv.className = 'member-photo';
+ squareDiv.style.backgroundImage = `url('${escapeHtml(photoUrl)}')`;
+ squareDiv.style.backgroundSize = 'cover';
+ squareDiv.style.backgroundPosition = 'center';
+ squareDiv.title = `Фото: ${member.name}`;
+ squareDiv.onerror = function() {
+ this.style.backgroundImage = 'none';
+ this.classList.add('fallback');
+ this.textContent = memberInitials[idx];
+ this.style.display = 'flex';
+ this.style.alignItems = 'center';
+ this.style.justifyContent = 'center';
+ this.style.fontSize = '28px';
+ this.style.fontWeight = 'bold';
+ };
+ if (squareDiv.complete && (squareDiv.naturalWidth === 0 || squareDiv.naturalHeight === 0)) {
+ squareDiv.onerror();
+ }
+ const rowHead = document.createElement('div');
+ rowHead.className = 'row-head';
+ rowHead.appendChild(squareDiv);
+ const titleSpan = document.createElement('div');
+ titleSpan.className = 'row-title';
+ titleSpan.textContent = `Участник ${idx+1}`;
+ rowHead.appendChild(titleSpan);
+ const miniGrid = document.createElement('div');
+ miniGrid.className = 'mini-grid';
+ miniGrid.innerHTML = `
+ <div><label class="caption">ФИО</label><input class="field" data-team="${idx}" data-field="name" value="${escapeHtml(member.name)}"></div>
+ <div><label class="caption">Роль</label><input class="field" data-team="${idx}" data-field="role" value="${escapeHtml(member.role)}"></div>
+ <div><label class="caption">Зона ответственности</label><input class="field" data-team="${idx}" data-field="duties" value="${escapeHtml(member.duties)}"></div>
+ `;
+ const conclusionDiv = document.createElement('div');
+ conclusionDiv.innerHTML = `<label class="caption">Личный вывод</label><textarea class="small" data-team="${idx}" data-field="conclusion">${escapeHtml(member.conclusion)}</textarea>`;
+ row.appendChild(rowHead);
+ row.appendChild(miniGrid);
+ row.appendChild(conclusionDiv);
+ list.appendChild(row);
+ });
+}
+
+функция renderEquipment(){
+ const list = byId('equipmentList');
+ list.innerHTML = '';
+ state.equipment.forEach((item, idx) => {
+ const row = document.createElement('div');
+ row.className = 'dynamic-row';
+ row.innerHTML = `
+ <div class="row-head"><div class="row-title">Позиция закупки ${idx+1}</div></div>
+ <div class="mini-grid">
+ <div><label class="caption">Оборудование</label><input class="field" data-equipment="${idx}" data-field="name" value="${escapeHtml(item.name)}"></div>
+ <div><label class="caption">Характеристики</label><input class="field" data-equipment="${idx}" data-field="specs" value="${escapeHtml(item.specs)}"></div>
+ <div><label class="caption">Приоритет</label><select data-equipment="${idx}" data-field="priority"><option ${item.priority==='Обязательная'?'selected':''}>Обязательная</option><option ${item.priority==='Рекомендуемая'?'selected':''}>Рекомендуемая</option><option ${item.priority==='Желательная'?'selected':''}>Желательная</option></select></div>
+ </div>
+ <div class="two-grid">
+ <div><label class="caption">Количество</label><input class="field" data-equipment="${idx}" data-field="qty" value="${escapeHtml(item.qty)}"></div>
+ <div><label class="caption">Цена</label><input class="field" data-equipment="${idx}" data-field="price" value="${escapeHtml(item.price)}"></div>
+ </div>
+ <div><label class="caption">Обоснование</label><textarea class="small" data-equipment="${idx}" data-field="reason">${escapeHtml(item.reason)}</textarea></div>
+ `;
+ list.appendChild(row);
+ });
+}
+
+function createImagePreview(src, alt, errorText) {
+ const container = document.createElement('div');
+ container.className = 'media-preview';
+ const img = document.createElement('img');
+ img.src = src; 
+ img.alt = alt; 
+ img.style.MaxWidth = '100%';
+ img.style.maxHeight = '200 пикселей'; 
+ img.onerror = () => { 
+ container.innerHTML = `<div style="отступ:20 пикселей;">?? ${escapeHtml(errorText || 'Файл не найден')}<br>Путь: ${escapeHtml(src)}</div>`;
+ container.style.flexDirection = 'столбец';
+ }; 
+ container.appendChild(img);
+ вернуть контейнер;
+}
+
+функция renderPhotos(){ 
+ const list = byId('Фотолист');
+ список.innerHTML = "; 
+ состояние.фотографии.forEach((фото, idx) => { 
+ const card = document.createElement('div');
+ card.className = 'медиа-карта';
+ const preview = createImagePreview(photo.path, `Фото ${idx+1}`, `Файл не найден: ${photo.path}<br>Поместите фото в папку images/`);
+ card.innerHTML = `<div class="row-head"><h3>Фото текущего состояния ${idx+1}</h3></div>`;
+ card.appendChild(preview);
+ const pathInput = document.createElement('label');
+ pathInput.className = 'caption';
+ pathInput.textContent = 'Путь к файлу';
+ const pathField = document.createElement('input');
+ pathField.className = 'field';
+ pathField.setAttribute('data-photo', idx);
+ pathField.setAttribute('data-field', 'path');
+ pathField.value = photo.path;
+ const captionLabel = document.createElement('label');
+ captionLabel.className = 'caption';
+ captionLabel.textContent = 'Подпись';
+ const captionField = document.createElement('input');
+ captionField.className = 'field';
+ captionField.setAttribute('data-photo', idx);
+ captionField.setAttribute('data-field', 'caption');
+ captionField.value = photo.caption;
+ const findingLabel = document.createElement('label');
+ findingLabel.className = 'caption';
+ findingLabel.textContent = 'Вывод';
+ const findingField = document.createElement('textarea');
+ findingField.className = 'small';
+ findingField.setAttribute('data-photo', idx);
+ findingField.setAttribute('data-field', 'finding');
+ findingField.value = photo.finding;
+ card.appendChild(pathInput);
+ card.appendChild(pathField);
+ card.appendChild(captionLabel);
+ card.appendChild(captionField);
+ card.appendChild(findingLabel);
+ card.appendChild(findingField);
+ list.appendChild(card);
+ });
+}
+
+function renderVisuals(){
+ const list = byId('visualList');
+ list.innerHTML = '';
+ state.visuals.forEach((vis, idx) => {
+ const card = document.createElement('div');
+ card.className = 'media-card';
+ const preview = createImagePreview(vis.path, `Визуализация ${idx+1}`, `Файл не найден: ${vis.path}<br>Поместите изображение в папку images/`);
+ card.innerHTML = `<div class="row-head"><h3>AI-визуализация ${idx+1}</h3></div>`;
+ card.appendChild(preview);
+ const pathLabel = document.createElement('label');
+ pathLabel.className = 'caption';
+ pathLabel.textContent = 'Путь к файлу';
+ const pathField = document.createElement('input');
+ pathField.className = 'field';
+ pathField.setAttribute('data-visual', idx);
+ pathField.setAttribute('data-field', 'path');
+ pathField.value = vis.path;
+ const promptLabel = document.createElement('label');
+ promptLabel.className = 'caption';
+ promptLabel.textContent = 'Промпт';
+ const promptField = document.createElement('textarea');
+ promptField.className = 'small';
+ promptField.setAttribute('data-visual', idx);
+ promptField.setAttribute('data-field', 'prompt');
+ promptField.value = vis.prompt;
+ const purposeLabel = document.createElement('label');
+ purposeLabel.className = 'caption';
+ purposeLabel.textContent = 'Назначение';
+ const purposeField = document.createElement('input');
+ purposeField.className = 'field';
+ purposeField.setAttribute('data-visual', idx);
+ purposeField.setAttribute('data-field', 'purpose');
+ purposeField.value = vis.purpose;
+ const criteriaLabel = document.createElement('label');
+ criteriaLabel.className = 'caption';
+ criteriaLabel.textContent = 'Что доказывает';
+ const criteriaField = document.createElement('textarea');
+ criteriaField.className = 'small';
+ criteriaField.setAttribute('data-visual', idx);
+ criteriaField.setAttribute('data-field', 'criteria');
+ criteriaField.value = vis.criteria;
+ card.appendChild(pathLabel);
+ card.appendChild(pathField);
+ card.appendChild(promptLabel);
+ card.appendChild(promptField);
+ card.appendChild(purposeLabel);
+ card.appendChild(purposeField);
+ card.appendChild(criteriaLabel);
+ card.appendChild(criteriaField);
+ list.appendChild(card);
+ });
+}
+
+function renderChecklist(){
+ const box = byId('qualityChecklist');
+ box.innerHTML = '';
+ let idx=0;
+ checklistGroups.forEach(g=>{
+ const card = document.createElement('div');
+ card.className = 'check-card';
+ card.innerHTML = `<h3>${g.title}</h3>` + g.items.map(t=>{
+ const key = 'check_'+idx++;
+ const checked = state.checklist[key] ? ' checked' : '';
+ return `<label class="check-item"><input type="checkbox" data-check="${key}"${checked}><span>${t}</span></label>`;
+ }).join('');
+ box.appendChild(card);
+ });
+ updateChecklistSummary();
+}
+
+function updateChecklistSummary(){
+ const all = document.querySelectorAll('[data-check]');
+ const done = document.querySelectorAll('[data-check]:checked');
+ const total = all.length;
+ const d = done.length;
+ const percent = total ? Math.round(d/total*100) : 0;
+ byId('doneCount').textContent = d;
+ byId('totalCount').textContent = total;
+ byId('readyPercent').textContent = percent+'%';
+ byId('scoreFill').style.width = percent+'%';
+ byId('readyStatus').textContent = percent>=90 ? 'Готово к защите' : (percent>=70 ? 'Почти готово' : (percent>=45 ? 'Требуется доработка' : (percent>0 ? 'Соберите доказательства' : 'Начните заполнение')));
+}
+
+function captureState(){
+ document.querySelectorAll('[data-team]').forEach(el=>state.team[Number(el.dataset.team)][el.dataset.field]=el.value);
+ document.querySelectorAll('[data-equipment]').forEach(el=>state.equipment[Number(el.dataset.equipment)][el.dataset.field]=el.value);
+ document.querySelectorAll('[data-photo]').forEach(el=>state.photos[Number(el.dataset.photo)][el.dataset.field]=el.value);
+ document.querySelectorAll('[data-visual]').forEach(el=>state.visuals[Number(el.dataset.visual)][el.dataset.field]=el.value);
+ document.querySelectorAll('[проверка данных]').forEach(el=>state.checklist[el.dataset.check]=el.checked);
+}
+
+функция saveDraft(){ 
+ captureState();
+ постоянные идентификаторы = ['projectTitle','objectType','roomNumber','audience','uniqueness','projectGoal','noBudgetPlan','budgetPlan','tco','workplaceErgo','restZone','serverNode','safetyAccess','finalProjectConclusion','implementationPlan'];
+ const fields={}; ids.forEach(id=>fields[id]=byId(id).value);
+ localStorage.setItem(storageKey, JSON.stringify({...fields, dynamic:state}));
+ alert('Черновик сохранён');
+}
+
+function loadDraft(){
+ const raw = localStorage.getItem(storageKey);
+ if(!raw) return;
+ try{
+ const saved = JSON.parse(raw);
+ Object.entries(saved).forEach(([k,v])=>{ if(k!=='dynamic'){ let el=byId(k); if(el) el.value=v; } });
+ if(saved.dynamic) state = {...state, ...saved.dynamic, photos: saved.dynamic.photos || state.photos, visuals: saved.dynamic.visuals || state.visuals};
+ } catch(e){}
+}
+
+document.addEventListener('ввод', (e)=>{ if(e.target.matches('ввод, текстовая область, выбор')) saveDraft(); });
+document.addEventListener('изменить', (e)=>{ if(e.target.matches('[проверка данных]')){ captureState(); updateChecklistSummary(); saveDraft(); } });
+byId('saveBtn').addEventListener('click', сохраненный файл);
+byId('clearBtn').addEventListener('click', ()=>{ if(confirm('Очистить черновик?')){ localStorage.removeItem(storageKey); location.reload(); } });
+function forcePassportValues(){
+ byId('projectTitle').value = 'Модернизация аудитории 6107';
+ const sel = byId('objectType'); for(let i=0;i<sel.options.length;i++) if(sel.options[i].text==='Учебная аудитория'){ sel.selectedIndex=i; break; }
+ byId('roomNumber').value = 'Корпус ФЭМ / аудитория 6107';
+ byId('audience').value = 'Студенты, преподаватели';
+ byId('uniqueness').value = 'Мы исследуем аудиторию № 6107 на факультете экономики и менеджмента. Наш проект отличается тем, что мы хотим создать комфортные условия для работы не только студентов, но и преподавателей.';
+ byId('projectGoal').value = 'Цель: студентам будет удобно заниматься за новыми партами и телевизорами, с которых даже с последних парт будет видно, что написано на доске; благодаря новому оборудованию для преподавателей повысится эффективность обучения, а в новой зоне отдыха студенты всегда будут приходить на пары вовремя и совершенствовать свои навыки общения с однокурсниками.';
+}
+
+function setAllCheckboxes(){
+ документ.querySelectorAll('[проверка данных]').forEach(cb=>{ cb.checked=true; state.checklist[cb.dataset.check]=true; });
+ updateChecklistSummary();
+}
+
+loadDraft(); 
+renderTeam();
+renderEquipment(); 
+renderPhotos(); 
+renderVisuals(); 
+renderChecklist();
+Значения forcepassport ();
+Установите флажки();
+
+document.addEventListener('mousemove', (e)=>{
+ const x=e.clientX/window.innerWidth, y=e.clientY/window.innerHeight; 
+ const earth=документ.querySelector('.earth');
+ if(earth) earth.style.transform=`перевести(${(x-0.5) * 15} пикселей, ${(y-0.5) * 10} пикселей)`;
+ документ.querySelectorAll('.circle').forEach((c,i)=>{ пусть s=0.03+i*0.005; c.стиль.transform=`перевести(${(x-0.5)*40* с} пикселей, ${(y-0.5)* 40* с} пикселей)`; });
+});
+</скрипт>
+</body>
+</html>
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
